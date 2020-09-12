@@ -1,45 +1,69 @@
 import {
   Controller,
   Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  Body,
-  Delete,
   Put,
+  Post,
+  Delete,
+  Res,
+  Body,
+  Param,
+  HttpStatus,
 } from '@nestjs/common';
+import { CreateTeamDto, UpdateTeamDto } from './dtos';
 import { TeamService } from './team.service';
-import { ReadTeamDto, CreateTeamDto, UpdateTeamDto } from './dtos';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
+@ApiTags('team')
 @Controller('team')
 export class TeamController {
   constructor(private teamService: TeamService) {}
 
-  // @Get()
-  // getTeams(): Promise<ReadTeamDto[]> {
-  //   return this.teamService.getTeams();
-  // }
+  @Get()
+  async getTeams(@Res() res) {
+    const teams = await this.teamService.findAll();
+    return res.status(HttpStatus.OK).json({
+      teams,
+    });
+  }
 
-  // @Get('/:teamId')
-  // getTeam(@Param('teamId', ParseIntPipe) teamId: number): Promise<ReadTeamDto> {
-  //   return this.teamService.getTeam(teamId);
-  // }
+  @Get('/:teamId')
+  async getTeam(@Res() res, @Param('teamId') teamId: string) {
+    const team = await this.teamService.findById(teamId);
+    //if (!team) throw new NotFoundException('Team does not exists');
+    return res.status(HttpStatus.OK).json(team);
+  }
 
-  // @Post('/create')
-  // createTeam(@Body() team: CreateTeamDto): Promise<ReadTeamDto> {
-  //   return this.teamService.createTeam(team);
-  // }
+  @Get('/find')
+  public async findTodo(@Res() res, @Body() body) {
+    const queryCondition = body;
+    const todos = await this.teamService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(todos);
+  }
 
-  // @Delete('/delete/:teamId')
-  // deleteTeam(@Param('teamId', ParseIntPipe) teamId: number): Promise<boolean> {
-  //   return this.teamService.deleteTeam(teamId);
-  // }
+  @Post('/create')
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async createTeam(@Res() res, @Body() createTeamDto: CreateTeamDto) {
+    const team = await this.teamService.create(createTeamDto);
+    return res.status(HttpStatus.OK).json({ team });
+  }
 
-  // @Put('/update/:teamId')
-  // updateTeam(
-  //   @Param('teamId', ParseIntPipe) teamId: number,
-  //   @Body() team: UpdateTeamDto,
-  // ): Promise<ReadTeamDto> {
-  //   return this.teamService.updateTeam(teamId, team);
-  // }
+  @Delete('/delete/:teamId')
+  async deleteTeam(@Param('teamId') teamId: string, @Res() res) {
+    const teamDeleted = await this.teamService.delete(teamId);
+    return res.status(HttpStatus.OK).json({ teamDeleted });
+  }
+
+  @Put('/update/:teamId')
+  async updateTeam(
+    @Param('teamId') teamId: string,
+    @Res() res,
+    @Body() updateTeamDto: UpdateTeamDto,
+  ) {
+    const teamUpdated = await this.teamService.update(teamId, updateTeamDto);
+    return res.status(HttpStatus.OK).json({ teamUpdated });
+  }
 }

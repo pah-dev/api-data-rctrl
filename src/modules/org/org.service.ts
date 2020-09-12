@@ -12,8 +12,8 @@ export class OrgService implements IOrgService {
     return await this.orgModel.find().exec();
   }
 
-  async findById(pilotId: number): Promise<IOrg> {
-    return await this.orgModel.findById(pilotId);
+  async findById(driverId: string): Promise<IOrg> {
+    return await this.orgModel.findById(driverId);
   }
 
   async findOne(options: object): Promise<IOrg> {
@@ -25,21 +25,21 @@ export class OrgService implements IOrgService {
     return await newOrg.save();
   }
 
-  async update(pilotId: number, newOrg: UpdateOrgDto): Promise<IOrg> {
-    const pilot = await this.orgModel.findById(pilotId).exec();
+  async update(driverId: string, newOrg: UpdateOrgDto): Promise<IOrg> {
+    const driver = await this.orgModel.findById(driverId).exec();
 
-    if (!pilot._id) {
+    if (!driver._id) {
       Logger.log('Org not found');
     }
 
     return await this.orgModel
-      .findByIdAndUpdate(pilotId, newOrg, { new: true })
+      .findByIdAndUpdate(driverId, newOrg, { new: true })
       .exec();
   }
 
-  async delete(pilotId: number): Promise<string> {
+  async delete(driverId: string): Promise<string> {
     try {
-      await this.orgModel.findByIdAndRemove(pilotId).exec();
+      await this.orgModel.findByIdAndRemove(driverId).exec();
       return 'The Org has been deleted';
     } catch (err) {
       Logger.log(err);

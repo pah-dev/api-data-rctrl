@@ -1,6 +1,6 @@
 import { IsString, MaxLength, IsUrl, IsEmail } from 'class-validator';
 import { Exclude, Expose } from 'class-transformer';
-import { ReadPilotDto } from '../../pilot/dtos';
+import { ReadDriverDto } from '../../driver/dtos';
 
 @Exclude()
 export class ReadTeamDto {
@@ -39,7 +39,7 @@ export class ReadTeamDto {
   readonly email?: string;
 
   @Expose()
-  readonly pilots: ReadPilotDto[];
+  readonly drivers: ReadDriverDto[];
 
   @Expose()
   @IsUrl({}, { message: 'Must be an URL' })

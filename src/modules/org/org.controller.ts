@@ -28,7 +28,7 @@ export class OrgController {
   }
 
   @Get('/:orgId')
-  async getOrg(@Res() res, @Param('orgId', ParseIntPipe) orgId: number) {
+  async getOrg(@Res() res, @Param('orgId') orgId: string) {
     const org = await this.orgService.findById(orgId);
     //if (!org) throw new NotFoundException('Org does not exists');
     return res.status(HttpStatus.OK).json(org);
@@ -53,14 +53,14 @@ export class OrgController {
   }
 
   @Delete('/delete/:orgId')
-  async deleteOrg(@Param('orgId', ParseIntPipe) orgId: number, @Res() res) {
+  async deleteOrg(@Param('orgId') orgId: string, @Res() res) {
     const orgDeleted = await this.orgService.delete(orgId);
     return res.status(HttpStatus.OK).json({ orgDeleted });
   }
 
   @Put('/update/:orgId')
   async updateOrg(
-    @Param('orgId', ParseIntPipe) orgId: number,
+    @Param('orgId') orgId: string,
     @Res() res,
     @Body() updateOrgDto: UpdateOrgDto,
   ) {

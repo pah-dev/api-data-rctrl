@@ -1,19 +1,30 @@
+import { IsString, IsBoolean } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
 import { IOrg } from '../../org/interfaces';
+import { ITeam } from 'src/modules/team/interfaces';
 
-export class CreateTeamDto {
+export class CreateDriverDto {
   @ApiProperty()
   @IsString()
-  readonly idTeam: string;
+  readonly idPlayer: string;
 
   @ApiPropertyOptional()
   @IsString()
   readonly idLeague: IOrg;
 
-  //  @ApiPropertyOptional()
-  // @IsString()
   // readonly idCategory: ICat;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idTeam: ITeam;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idTeam2: ITeam;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idTeamNational: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -25,7 +36,15 @@ export class CreateTeamDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly intLoved: string;
+  readonly idPlayerManager: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strNationality: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strPlayer: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -33,15 +52,7 @@ export class CreateTeamDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTeamShort: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strAlternate: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly intFormedYear: string;
+  readonly strTeam2: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -49,107 +60,43 @@ export class CreateTeamDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeague: string;
+  readonly intSoccerXMLTeamID: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeague2: string;
+  readonly dateBorn: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idLeague2: IOrg;
+  readonly strNumber: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeague3: string;
+  readonly dateSigned: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idLeague3: IOrg;
+  readonly strSigning: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeague4: string;
+  readonly strWage: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idLeague4: IOrg;
+  readonly strOutfitter: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeague5: string;
+  readonly strKit: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idLeague5: IOrg;
+  readonly strAgent: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeague6: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idLeague6: IOrg;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strLeague7: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idLeague7: IOrg;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strDivision: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strManager: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strStadium: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strKeywords: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strRSS: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strStadiumThumb: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strStadiumDescription: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strStadiumLocation: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly intStadiumCapacity: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strWebsite: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFacebook: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTwitter: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strInstagram: string;
+  readonly strBirthLocation: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -217,39 +164,31 @@ export class CreateTeamDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCountry: string;
+  readonly strSide: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTeamBadge: string;
+  readonly strPosition: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTeamJersey: string;
+  readonly strCollege: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTeamLogo: string;
+  readonly strFacebook: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTeamFanart1: string;
+  readonly strWebsite: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTeamFanart2: string;
+  readonly strTwitter: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTeamFanart3: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTeamFanart4: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTeamBanner: string;
+  readonly strInstagram: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -257,9 +196,57 @@ export class CreateTeamDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLocked: string;
+  readonly strHeight: string;
 
   @ApiPropertyOptional()
   @IsString()
+  readonly strWeight: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly intLoved: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strThumb: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCutout: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strRender: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strBanner: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart1: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart2: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart3: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart4: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCreativeCommons: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLocked: string;
+
+  @ApiPropertyOptional()
+  @IsBoolean()
   readonly isOnlyImg: boolean;
 }

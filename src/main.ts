@@ -12,7 +12,14 @@ async function bootstrap() {
     .addTag('racectrl')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/docs', app, document, {
+    explorer: true,
+    swaggerOptions: {
+      filter: true,
+      showRequestDurations: true,
+    },
+    customSiteTitle: 'API Docs. RaceCtrl Data',
+  });
 
   await app.listen(3000);
 }

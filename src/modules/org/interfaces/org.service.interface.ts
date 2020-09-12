@@ -3,9 +3,9 @@ import { IOrg } from './org.interface';
 
 export interface IOrgService {
   findAll(): Promise<IOrg[]>;
-  findById(pilotId: number): Promise<IOrg | null>;
+  findById(orgId: string): Promise<IOrg | null>;
   findOne(options: object): Promise<IOrg | null>;
-  create(pilot: CreateOrgDto): Promise<IOrg>;
-  update(pilotId: number, newOrg: UpdateOrgDto): Promise<IOrg | null>;
-  delete(pilotId: number): Promise<string>;
+  create(org: CreateOrgDto): Promise<IOrg>;
+  update(orgId: string, newOrg: UpdateOrgDto): Promise<IOrg | null>;
+  delete(orgId: string): Promise<string>;
 }

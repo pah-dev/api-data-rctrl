@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, MaxLength, IsUrl, IsEmail } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateOrgDto {
   @ApiProperty({ name: 'Org ID' })
