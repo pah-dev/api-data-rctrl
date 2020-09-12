@@ -1,0 +1,12 @@
+export enum Configuration {
+  PORT = 'PORT',
+  HOST = 'HOST',
+  DB_HOST = 'DB_HOST',
+  DB_USERNAME = 'DB_USERNAME',
+  DB_PASSWORD = 'DB_PASSWORD',
+  DB_DATABASE = 'DB_DATABASE',
+  DB_PORT = 'DB_PORT',
+  ENV = 'ENV',
+  JWT_SECRET = 'JWT_SECRET',
+  MONGODB_URI = 'MONGODB_URI',
+}

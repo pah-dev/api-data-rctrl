@@ -1,0 +1,41 @@
+import { Document } from 'mongoose';
+import { BaseInterface } from '../../../shared/base.interface';
+
+export interface IOrg extends Document, BaseInterface {
+  readonly idLeague: string;
+  readonly strLeague: string;
+  readonly strLeagueAlternate: string;
+  readonly alias: string;
+  readonly intFormedYear: string;
+  readonly strCurrentSeason: string;
+  readonly strCountry: string;
+  readonly strWebsite: string;
+  readonly strFacebook: string;
+  readonly strTwitter: string;
+  readonly strYoutube: string;
+  readonly strInstagram: string;
+  readonly strDescriptionEN: string;
+  readonly strDescriptionDE: string;
+  readonly strDescriptionFR: string;
+  readonly strDescriptionIT: string;
+  readonly strDescriptionCN: string;
+  readonly strDescriptionJP: string;
+  readonly strDescriptionRU: string;
+  readonly strDescriptionES: string;
+  readonly strDescriptionPT: string;
+  readonly strDescriptionSE: string;
+  readonly strDescriptionNL: string;
+  readonly strDescriptionHU: string;
+  readonly strDescriptionNO: string;
+  readonly strDescriptionPL: string;
+  readonly strDescriptionIL: string;
+  readonly strFanart1: string;
+  readonly strFanart2: string;
+  readonly strFanart3: string;
+  readonly strFanart4: string;
+  readonly strBanner: string;
+  readonly strBadge: string;
+  readonly strLogo: string;
+  readonly strPoster: string;
+  readonly strTrophy: string;
+}
