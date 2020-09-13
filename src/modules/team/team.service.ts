@@ -6,7 +6,7 @@ import { CreateTeamDto, UpdateTeamDto } from './dtos';
 
 @Injectable()
 export class TeamService implements ITeamService {
-  constructor(@InjectModel('Team') private readonly teamModel: Model<ITeam>) {}
+  constructor(@InjectModel('Teams') private readonly teamModel: Model<ITeam>) {}
 
   async findAll(): Promise<ITeam[]> {
     return await this.teamModel.find().exec();

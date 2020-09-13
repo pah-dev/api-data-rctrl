@@ -6,7 +6,7 @@ import { ChampSchema } from './schemas/champ.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Champ', schema: ChampSchema }]),
+    MongooseModule.forFeature([{ name: 'Champs', schema: ChampSchema }]),
   ],
   controllers: [ChampController],
   providers: [ChampService],

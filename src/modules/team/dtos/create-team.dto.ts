@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
+import { ICat } from '../../cat/interfaces';
 import { IOrg } from '../../org/interfaces';
 
 export class CreateTeamDto {
@@ -7,13 +8,29 @@ export class CreateTeamDto {
   @IsString()
   readonly idTeam: string;
 
-  @ApiPropertyOptional()
+  @ApiProperty()
   @IsString()
   readonly idLeague: IOrg;
 
-  //  @ApiPropertyOptional()
-  // @IsString()
-  // readonly idCategory: ICat;
+  @ApiProperty()
+  @IsString()
+  readonly idCategory: ICat;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idEspn: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idTsdb: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idMss: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idRCtrl: string;
 
   @ApiPropertyOptional()
   @IsString()

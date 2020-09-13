@@ -5,7 +5,7 @@ import { OrgService } from './org.service';
 import { OrgSchema } from './schemas/org.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'Org', schema: OrgSchema }])],
+  imports: [MongooseModule.forFeature([{ name: 'Orgs', schema: OrgSchema }])],
   controllers: [OrgController],
   providers: [OrgService],
 })

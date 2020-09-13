@@ -1,16 +1,17 @@
-import { IsString, IsBoolean } from 'class-validator';
+import { IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IOrg } from '../../org/interfaces';
 import { IChampData } from '../interfaces/champ-data.interface';
+import { ICat } from '../../cat/interfaces';
 
 export class CreateChampDto {
   @ApiProperty()
   @IsString()
   readonly idLeague: IOrg;
 
-  // @ApiProperty()
-  // @IsString()
-  // readonly idCategory: ICat;
+  @ApiProperty()
+  @IsString()
+  readonly idCategory: ICat;
 
   @ApiProperty()
   @IsString()

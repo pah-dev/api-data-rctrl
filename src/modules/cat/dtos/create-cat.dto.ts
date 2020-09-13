@@ -1,61 +1,47 @@
-import { IsString, IsBoolean } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 import { IOrg } from '../../org/interfaces';
-import { ITeam } from '../../team/interfaces';
-import { ICat } from '../../cat/interfaces';
 
-export class CreateDriverDto {
+export class CreateCatDto {
   @ApiProperty()
   @IsString()
-  readonly idPlayer: string;
+  readonly idCategory: string;
 
   @ApiProperty()
   @IsString()
   readonly idLeague: IOrg;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsString()
-  readonly idCategory: ICat;
+  readonly strCat: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idTeam: ITeam;
+  readonly strCatShort: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idTeam2: ITeam;
+  readonly strAlternate: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idTeamNational: string;
+  readonly idEspn: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idSoccerXML: string;
+  readonly idTsdb: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idAPIfootball: string;
+  readonly idMss: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idPlayerManager: string;
+  readonly idRCtrl: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strNationality: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strPlayer: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTeam: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTeam2: string;
+  readonly intFormedYear: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -63,43 +49,31 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly intSoccerXMLTeamID: string;
+  readonly strLeague: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly dateBorn: string;
+  readonly strDivision: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strNumber: string;
+  readonly strManager: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly dateSigned: string;
+  readonly strWebsite: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strSigning: string;
+  readonly strFacebook: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strWage: string;
+  readonly strTwitter: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strOutfitter: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strKit: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strAgent: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strBirthLocation: string;
+  readonly strInstagram: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -163,35 +137,39 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strGender: string;
+  readonly strCountry: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strSide: string;
+  readonly strCatBadge: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strPosition: string;
+  readonly strCatJersey: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCollege: string;
+  readonly strCatLogo: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFacebook: string;
+  readonly strCatFanart1: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strWebsite: string;
+  readonly strCatFanart2: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTwitter: string;
+  readonly strCatFanart3: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strInstagram: string;
+  readonly strCatFanart4: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCatBanner: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -199,57 +177,9 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strHeight: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strWeight: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly intLoved: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strThumb: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strCutout: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strRender: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strBanner: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFanart1: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFanart2: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFanart3: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFanart4: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strCreativeCommons: string;
-
-  @ApiPropertyOptional()
-  @IsString()
   readonly strLocked: string;
 
   @ApiPropertyOptional()
-  @IsBoolean()
+  @IsString()
   readonly isOnlyImg: boolean;
 }

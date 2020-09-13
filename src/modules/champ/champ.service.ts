@@ -7,7 +7,7 @@ import { CreateChampDto, UpdateChampDto } from './dtos';
 @Injectable()
 export class ChampService implements IChampService {
   constructor(
-    @InjectModel('Champ') private readonly champModel: Model<IChamp>,
+    @InjectModel('Champs') private readonly champModel: Model<IChamp>,
   ) {}
 
   async findAll(): Promise<IChamp[]> {

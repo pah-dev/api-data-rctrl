@@ -7,11 +7,13 @@ import { EventModule } from './modules/event/event.module';
 import { DriverModule } from './modules/driver/driver.module';
 import { TeamModule } from './modules/team/team.module';
 import { ChampModule } from './modules/champ/champ.module';
+import { CatModule } from './modules/cat/cat.module';
 
 @Module({
   imports: [
     DatabaseModule,
     OrgModule,
+    CatModule,
     DriverModule,
     EventModule,
     TeamModule,

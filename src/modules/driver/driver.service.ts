@@ -7,7 +7,7 @@ import { CreateDriverDto, UpdateDriverDto } from './dtos';
 @Injectable()
 export class DriverService implements IDriverService {
   constructor(
-    @InjectModel('Driver') private readonly driverModel: Model<IDriver>,
+    @InjectModel('Drivers') private readonly driverModel: Model<IDriver>,
   ) {}
 
   async findAll(): Promise<IDriver[]> {

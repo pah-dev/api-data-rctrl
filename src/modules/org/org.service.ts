@@ -1,23 +1,32 @@
 import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
-import { ReadOrgDto, CreateOrgDto, UpdateOrgDto } from './dtos';
+import { CreateOrgDto, UpdateOrgDto } from './dtos';
 import { InjectModel } from '@nestjs/mongoose';
 import { IOrg, IOrgService } from './interfaces';
 
 @Injectable()
 export class OrgService implements IOrgService {
-  constructor(@InjectModel('Org') private readonly orgModel: Model<IOrg>) {}
+  constructor(@InjectModel('Orgs') private readonly orgModel: Model<IOrg>) {}
 
   async findAll(): Promise<IOrg[]> {
-    return await this.orgModel.find().exec();
+    return await this.orgModel
+      .find()
+      .populate('categories')
+      .exec();
   }
 
   async findById(driverId: string): Promise<IOrg> {
-    return await this.orgModel.findById(driverId);
+    return await this.orgModel
+      .findById(driverId)
+      .populate('categories')
+      .exec();
   }
 
   async findOne(options: object): Promise<IOrg> {
-    return await this.orgModel.findOne(options).exec();
+    return await this.orgModel
+      .findOne(options)
+      .populate('categories')
+      .exec();
   }
 
   async create(createOrgDto: CreateOrgDto): Promise<IOrg> {
@@ -29,7 +38,7 @@ export class OrgService implements IOrgService {
     const driver = await this.orgModel.findById(driverId).exec();
 
     if (!driver._id) {
-      Logger.log('Org not found');
+      Logger.log('Organization not found');
     }
 
     return await this.orgModel
@@ -40,10 +49,10 @@ export class OrgService implements IOrgService {
   async delete(driverId: string): Promise<string> {
     try {
       await this.orgModel.findByIdAndRemove(driverId).exec();
-      return 'The Org has been deleted';
+      return 'The Organization has been deleted';
     } catch (err) {
       Logger.log(err);
-      return 'The Org could not be deleted';
+      return 'The Organization could not be deleted';
     }
   }
 }

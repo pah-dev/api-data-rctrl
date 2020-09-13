@@ -1,6 +1,7 @@
 import { IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IOrg } from 'src/modules/org/interfaces';
+import { IOrg } from '../../org/interfaces';
+import { ICat } from '../../cat/interfaces';
 
 export class CreateEventDto {
   @ApiProperty()
@@ -17,19 +18,35 @@ export class CreateEventDto {
 
   @ApiPropertyOptional()
   @IsString()
+  readonly idEspn: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idTsdb: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idMss: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idRCtrl: string;
+
+  @ApiPropertyOptional()
+  @IsString()
   readonly strFilename: string;
 
   @ApiPropertyOptional()
   @IsString()
   readonly strSport: string;
 
+  @ApiProperty()
+  @IsString()
+  readonly idLeague: IOrg;
+
   @ApiPropertyOptional()
   @IsString()
-  readonly idLeague: IOrg[];
-
-  // @ApiPropertyOptional()
-  // @IsString()
-  // readonly idCategory: ICat[];
+  readonly categories: ICat[];
 
   @ApiPropertyOptional()
   @IsString()

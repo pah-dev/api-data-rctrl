@@ -1,15 +1,20 @@
 import { Document } from 'mongoose';
 import { IOrg } from '../../org/interfaces';
 import { BaseInterface } from '../../../shared/base.interface';
-import { ITeam } from 'src/modules/team/interfaces';
+import { ITeam } from '../../team/interfaces';
+import { ICat } from '../../cat/interfaces';
 
 export interface IDriver extends Document, BaseInterface {
   readonly idPlayer: string;
   readonly idLeague: IOrg;
-  // readonly idCategory: ICat;
+  readonly idCategory: ICat;
   readonly idTeam: ITeam;
   readonly idTeam2: ITeam;
   readonly idTeamNational: string;
+  readonly idEspn: string;
+  readonly idTsdb: string;
+  readonly idMss: string;
+  readonly idRCtrl: string;
   readonly idSoccerXML: string;
   readonly idAPIfootball: string;
   readonly idPlayerManager: string;

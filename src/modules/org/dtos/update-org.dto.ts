@@ -2,7 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class UpdateOrgDto {
-  @ApiProperty({ name: 'Org name' })
+  @ApiProperty()
   @IsString()
   readonly strLeague: string;
 

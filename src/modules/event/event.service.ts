@@ -7,7 +7,7 @@ import { CreateEventDto, UpdateEventDto } from './dtos';
 @Injectable()
 export class EventService implements IEventService {
   constructor(
-    @InjectModel('Event') private readonly eventModel: Model<IEvent>,
+    @InjectModel('Events') private readonly eventModel: Model<IEvent>,
   ) {}
 
   async findAll(): Promise<IEvent[]> {
