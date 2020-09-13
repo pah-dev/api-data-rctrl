@@ -2,14 +2,15 @@ import { Schema } from 'mongoose';
 
 export const OrgSchema = new Schema(
   {
-    idLeague: { type: String, required: true },
+    idLeague: { type: String, required: true, unique: true },
     strLeague: { type: String, required: true },
     strLeagueAlternate: String,
     alias: String,
-    categories: [{ type: Schema.Types.ObjectId, ref: 'Cats', required: true }],
+    categories: [{ type: Schema.Types.ObjectId, ref: 'Cats' }],
     idEspn: String,
     idTsdb: String,
     idMss: String,
+    idMyL: String,
     idRCtrl: String,
     intFormedYear: String,
     strCurrentSeason: String,

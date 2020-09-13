@@ -11,11 +11,11 @@ export class CreateDriverDto {
 
   @ApiProperty()
   @IsString()
-  readonly idLeague: IOrg;
+  readonly idOrg: IOrg;
 
   @ApiProperty()
   @IsString()
-  readonly idCategory: ICat;
+  readonly idCat: ICat;
 
   @ApiPropertyOptional()
   @IsString()
@@ -28,6 +28,26 @@ export class CreateDriverDto {
   @ApiPropertyOptional()
   @IsString()
   readonly idTeamNational: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idEspn: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idTsdb: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idMss: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idMyL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idRCtrl: string;
 
   @ApiPropertyOptional()
   @IsString()

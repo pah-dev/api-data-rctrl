@@ -3,10 +3,15 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ICat, ICatService } from './interfaces';
 import { CreateCatDto, UpdateCatDto } from './dtos';
+import { OrgService } from '../org/org.service';
+import { AnyARecord } from 'dns';
 
 @Injectable()
 export class CatService implements ICatService {
-  constructor(@InjectModel('Cats') private readonly catModel: Model<ICat>) {}
+  constructor(
+    @InjectModel('Cats') private readonly catModel: Model<ICat>,
+    private orgService: OrgService,
+  ) {}
 
   async findAll(): Promise<ICat[]> {
     return await this.catModel.find().exec();
@@ -20,9 +25,20 @@ export class CatService implements ICatService {
     return await this.catModel.findOne(options).exec();
   }
 
-  async create(createCatDto: CreateCatDto): Promise<ICat> {
-    const newCat = new this.catModel(createCatDto);
-    return await newCat.save();
+  async create(createCatDto: CreateCatDto): Promise<any> {
+    try {
+      const newCat = new this.catModel(createCatDto);
+      const savedCat = await newCat.save();
+      if (savedCat._id) {
+        await this.orgService.addCategory(createCatDto.idOrg, savedCat._id);
+      }
+      return savedCat;
+    } catch (err) {
+      Logger.error(err, 'CreateCategory');
+      return (
+        'The Category ' + createCatDto.idCategory + ' could not be created'
+      );
+    }
   }
 
   async update(catId: string, newCat: UpdateCatDto): Promise<ICat> {

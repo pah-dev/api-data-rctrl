@@ -8,5 +8,6 @@ import { OrgSchema } from './schemas/org.schema';
   imports: [MongooseModule.forFeature([{ name: 'Orgs', schema: OrgSchema }])],
   controllers: [OrgController],
   providers: [OrgService],
+  exports: [OrgService],
 })
 export class OrgModule {}

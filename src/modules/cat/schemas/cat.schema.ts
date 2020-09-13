@@ -2,14 +2,15 @@ import { Schema } from 'mongoose';
 
 export const CatSchema = new Schema(
   {
-    idCategory: { type: String, required: true },
-    idLeague: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
+    idCategory: { type: String, required: true, unique: true },
+    idOrg: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
     strCat: { type: String, required: true },
     strCatShort: String,
     strAlternate: String,
     idEspn: String,
     idTsdb: String,
     idMss: String,
+    idMyL: String,
     idRCtrl: String,
     intFormedYear: String,
     strSport: String,
@@ -46,7 +47,8 @@ export const CatSchema = new Schema(
     strCatBanner: String,
     strYoutube: String,
     strLocked: String,
-    isOnlyImg: Boolean,
+    infoInCat: { type: Boolean, default: false },
+    isOnlyImg: { type: Boolean, default: false },
   },
   {
     versionKey: false,

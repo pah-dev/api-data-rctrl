@@ -36,6 +36,10 @@ export class CreateOrgDto {
 
   @ApiPropertyOptional()
   @IsString()
+  readonly idMyL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
   readonly idRCtrl: string;
 
   @ApiPropertyOptional()

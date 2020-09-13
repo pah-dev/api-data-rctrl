@@ -9,7 +9,7 @@ export class CreateCatDto {
 
   @ApiProperty()
   @IsString()
-  readonly idLeague: IOrg;
+  readonly idOrg: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -34,6 +34,10 @@ export class CreateCatDto {
   @ApiPropertyOptional()
   @IsString()
   readonly idMss: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idMyL: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -178,6 +182,10 @@ export class CreateCatDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strLocked: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly infoInCat: boolean;
 
   @ApiPropertyOptional()
   @IsString()

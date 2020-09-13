@@ -30,6 +30,10 @@ export class CreateTeamDto {
 
   @ApiPropertyOptional()
   @IsString()
+  readonly idMyL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
   readonly idRCtrl: string;
 
   @ApiPropertyOptional()

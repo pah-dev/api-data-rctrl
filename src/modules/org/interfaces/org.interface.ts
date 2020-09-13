@@ -1,5 +1,4 @@
 import { Document } from 'mongoose';
-import { ICat } from '../../cat/interfaces';
 import { BaseInterface } from '../../../shared/base.interface';
 
 export interface IOrg extends Document, BaseInterface {
@@ -7,10 +6,11 @@ export interface IOrg extends Document, BaseInterface {
   readonly strLeague: string;
   readonly strLeagueAlternate: string;
   readonly alias: string;
-  readonly categories: ICat[];
+  readonly categories: any[];
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
+  readonly idMyL: string;
   readonly idRCtrl: string;
   readonly intFormedYear: string;
   readonly strCurrentSeason: string;

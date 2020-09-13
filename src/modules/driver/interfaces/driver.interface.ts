@@ -6,14 +6,15 @@ import { ICat } from '../../cat/interfaces';
 
 export interface IDriver extends Document, BaseInterface {
   readonly idPlayer: string;
-  readonly idLeague: IOrg;
-  readonly idCategory: ICat;
+  readonly idOrg: IOrg;
+  readonly idCat: ICat;
   readonly idTeam: ITeam;
   readonly idTeam2: ITeam;
   readonly idTeamNational: string;
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
+  readonly idMyL: string;
   readonly idRCtrl: string;
   readonly idSoccerXML: string;
   readonly idAPIfootball: string;

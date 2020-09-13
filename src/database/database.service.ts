@@ -10,6 +10,8 @@ export const databaseProviders = [
     useFactory: async (config: ConfigService) => ({
       uri: config.get(Configuration.MONGODB_URI),
       useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
     }),
   }),
 ];

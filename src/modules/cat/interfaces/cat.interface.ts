@@ -4,12 +4,13 @@ import { BaseInterface } from '../../../shared/base.interface';
 
 export interface ICat extends Document, BaseInterface {
   readonly idCategory: string;
-  readonly idLeague: IOrg;
+  readonly idOrg: IOrg;
   readonly strCat: string;
   readonly strCatShort: string;
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
+  readonly idMyL: string;
   readonly idRCtrl: string;
   readonly strAlternate: string;
   readonly intFormedYear: string;
@@ -47,5 +48,6 @@ export interface ICat extends Document, BaseInterface {
   readonly strCatBanner: string;
   readonly strYoutube: string;
   readonly strLocked: string;
+  readonly infoInCat: string;
   readonly isOnlyImg: boolean;
 }

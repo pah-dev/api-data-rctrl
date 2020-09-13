@@ -2,16 +2,18 @@ import { Schema } from 'mongoose';
 
 export const ChampSchema = new Schema(
   {
-    idLeague: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
-    idCategory: { type: Schema.Types.ObjectId, ref: 'Cats', required: true },
+    idOrg: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
+    idCat: { type: Schema.Types.ObjectId, ref: 'Cats', required: true },
     idEspn: String,
     idTsdb: String,
     idMss: String,
+    idMyL: String,
     idRCtrl: String,
     strSeason: String,
+    numSeason: Number,
     data: [
       {
-        idPlayer: { type: Schema.Types.ObjectId, ref: 'Drivers' },
+        idDriver: { type: Schema.Types.ObjectId, ref: 'Drivers' },
         position: Number,
         totalPoints: Number,
       },

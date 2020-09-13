@@ -9,11 +9,12 @@ export interface IEvent extends Document, BaseInterface {
   readonly strEventAlternate: string;
   readonly strFilename: string;
   readonly strSport: string;
-  readonly idLeague: IOrg;
+  readonly idOrg: IOrg;
   readonly categories: ICat[];
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
+  readonly idMyL: string;
   readonly idRCtrl: string;
   readonly strLeague: string;
   readonly strSeason: string;

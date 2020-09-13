@@ -8,6 +8,7 @@ export const TeamSchema = new Schema(
     idEspn: String,
     idTsdb: String,
     idMss: String,
+    idMyL: String,
     idRCtrl: String,
     idSoccerXML: String,
     idAPIfootball: String,

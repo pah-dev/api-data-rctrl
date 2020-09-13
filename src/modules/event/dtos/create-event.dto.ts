@@ -30,6 +30,10 @@ export class CreateEventDto {
 
   @ApiPropertyOptional()
   @IsString()
+  readonly idMyL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
   readonly idRCtrl: string;
 
   @ApiPropertyOptional()
@@ -42,7 +46,7 @@ export class CreateEventDto {
 
   @ApiProperty()
   @IsString()
-  readonly idLeague: IOrg;
+  readonly idOrg: IOrg;
 
   @ApiPropertyOptional()
   @IsString()

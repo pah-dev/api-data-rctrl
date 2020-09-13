@@ -10,6 +10,7 @@ export interface ITeam extends Document, BaseInterface {
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
+  readonly idMyL: string;
   readonly idRCtrl: string;
   readonly idSoccerXML: string;
   readonly idAPIfootball: string;

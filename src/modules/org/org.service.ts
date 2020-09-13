@@ -15,9 +15,9 @@ export class OrgService implements IOrgService {
       .exec();
   }
 
-  async findById(driverId: string): Promise<IOrg> {
+  async findById(orgId: string): Promise<IOrg> {
     return await this.orgModel
-      .findById(driverId)
+      .findById(orgId)
       .populate('categories')
       .exec();
   }
@@ -34,25 +34,34 @@ export class OrgService implements IOrgService {
     return await newOrg.save();
   }
 
-  async update(driverId: string, newOrg: UpdateOrgDto): Promise<IOrg> {
-    const driver = await this.orgModel.findById(driverId).exec();
-
-    if (!driver._id) {
-      Logger.log('Organization not found');
+  async update(orgId: string, newOrg: UpdateOrgDto): Promise<IOrg> {
+    const org = await this.orgModel.findById(orgId).exec();
+    if (!org._id) {
+      Logger.warn('Organization not found');
     }
-
     return await this.orgModel
-      .findByIdAndUpdate(driverId, newOrg, { new: true })
+      .findByIdAndUpdate(orgId, newOrg, { new: true })
       .exec();
   }
 
-  async delete(driverId: string): Promise<string> {
+  async delete(orgId: string): Promise<string> {
     try {
-      await this.orgModel.findByIdAndRemove(driverId).exec();
+      await this.orgModel.findByIdAndRemove(orgId).exec();
       return 'The Organization has been deleted';
     } catch (err) {
-      Logger.log(err);
+      Logger.error(err);
       return 'The Organization could not be deleted';
     }
+  }
+
+  async addCategory(orgId: string, catId: string): Promise<IOrg> {
+    const org = await this.orgModel.findById(orgId).exec();
+    if (!org._id) {
+      Logger.warn('Organization not found');
+    }
+    org.categories.push(catId);
+    return await this.orgModel
+      .findByIdAndUpdate(orgId, org, { new: true })
+      .exec();
   }
 }

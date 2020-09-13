@@ -3,14 +3,15 @@ import { Schema } from 'mongoose';
 export const DriverSchema = new Schema(
   {
     idPlayer: { type: String, required: true },
-    idLeague: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
-    idCategory: { type: Schema.Types.ObjectId, ref: 'Cats', required: true },
+    idOrg: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
+    idCat: { type: Schema.Types.ObjectId, ref: 'Cats', required: true },
     idTeam: { type: Schema.Types.ObjectId, ref: 'Teams' },
     idTeam2: { type: Schema.Types.ObjectId, ref: 'Teams' },
     idTeamNational: String,
     idEspn: String,
     idTsdb: String,
     idMss: String,
+    idMyL: String,
     idRCtrl: String,
     idSoccerXML: String,
     idAPIfootball: String,

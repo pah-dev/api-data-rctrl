@@ -1,8 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
+import { ICat } from '../../cat/interfaces';
 
 export class UpdateOrgDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Organization name' })
   @IsString()
   readonly strLeague: string;
 
@@ -13,6 +14,29 @@ export class UpdateOrgDto {
   @ApiPropertyOptional()
   @IsString()
   readonly alias?: string;
+
+  @ApiProperty()
+  readonly categories: ICat[];
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idEspn: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idTsdb: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idMss: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idMyL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idRCtrl: string;
 
   @ApiPropertyOptional()
   @IsString()
