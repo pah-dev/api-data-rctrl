@@ -59,7 +59,7 @@ export class DriverController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async multiCreateDriver(
     @Res() res,
-    @Body('data') createDriverDto: CreateDriverDto[],
+    @Body() createDriverDto: CreateDriverDto[],
   ) {
     const driver = await this.driverService.mulitCreate(createDriverDto);
     return res.status(HttpStatus.OK).json({ driver });

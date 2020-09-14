@@ -40,6 +40,7 @@ export class DriverService implements IDriverService {
   async mulitCreate(createDriverDto: CreateDriverDto[]): Promise<any> {
     const ret = [];
     try {
+      Logger.log(createDriverDto.length);
       const cat = await this.catService.findOne({
         idCategory: createDriverDto[0].idCategory,
       });
