@@ -7,6 +7,7 @@ export interface IOrg extends Document, BaseInterface {
   readonly strLeagueAlternate: string;
   readonly alias: string;
   readonly categories: any[];
+  readonly strSeccion: string;
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
@@ -44,4 +45,6 @@ export interface IOrg extends Document, BaseInterface {
   readonly strLogo: string;
   readonly strPoster: string;
   readonly strTrophy: string;
+  readonly rank: number;
+  readonly isWorking: boolean;
 }

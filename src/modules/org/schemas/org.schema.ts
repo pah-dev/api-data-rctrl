@@ -7,6 +7,7 @@ export const OrgSchema = new Schema(
     strLeagueAlternate: String,
     alias: String,
     categories: [{ type: Schema.Types.ObjectId, ref: 'Cats' }],
+    strSection: String,
     idEspn: String,
     idTsdb: String,
     idMss: String,
@@ -44,6 +45,8 @@ export const OrgSchema = new Schema(
     strLogo: String,
     strPoster: String,
     strTrophy: String,
+    rank: { type: Number, default: 999 },
+    isWorking: { type: Boolean, default: true },
   },
   {
     versionKey: false,

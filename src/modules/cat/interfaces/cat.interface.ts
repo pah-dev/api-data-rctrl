@@ -1,10 +1,10 @@
 import { Document } from 'mongoose';
-import { IOrg } from '../../org/interfaces';
 import { BaseInterface } from '../../../shared/base.interface';
 
 export interface ICat extends Document, BaseInterface {
   readonly idCategory: string;
-  readonly idOrg: IOrg;
+  idOrg: string;
+  readonly idLeague: string;
   readonly strCat: string;
   readonly strCatShort: string;
   readonly idEspn: string;
@@ -38,16 +38,18 @@ export interface ICat extends Document, BaseInterface {
   readonly strDescriptionIL: string;
   readonly strDescriptionPL: string;
   readonly strCountry: string;
-  readonly strCatBadge: string;
-  readonly strCatJersey: string;
-  readonly strCatLogo: string;
-  readonly strCatFanart1: string;
-  readonly strCatFanart2: string;
-  readonly strCatFanart3: string;
-  readonly strCatFanart4: string;
-  readonly strCatBanner: string;
+  readonly strBadge: string;
+  readonly strJersey: string;
+  readonly strLogo: string;
+  readonly strFanart1: string;
+  readonly strFanart2: string;
+  readonly strFanart3: string;
+  readonly strFanart4: string;
+  readonly strBanner: string;
   readonly strYoutube: string;
   readonly strLocked: string;
-  readonly infoInCat: string;
+  readonly infoInCat: boolean;
   readonly isOnlyImg: boolean;
+  readonly isWorking: boolean;
+  readonly rank: number;
 }

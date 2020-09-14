@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { ICat } from '../../cat/interfaces';
 
 export class CreateOrgDto {
@@ -21,6 +21,10 @@ export class CreateOrgDto {
 
   @ApiProperty()
   readonly categories: ICat[];
+
+  @ApiProperty()
+  @IsString()
+  readonly strSeccion: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -169,4 +173,12 @@ export class CreateOrgDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strTrophy?: string;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly rank: number;
+
+  @ApiPropertyOptional()
+  @IsBoolean()
+  readonly isWorking: boolean;
 }

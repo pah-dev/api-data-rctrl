@@ -33,6 +33,11 @@ export class ChampService implements IChampService {
 
   async create(createChampDto: CreateChampDto): Promise<IChamp> {
     const newChamp = new this.champModel(createChampDto);
+    let sum = 0;
+    for (const element of newChamp.data) {
+      sum += element.totalPoints;
+    }
+    newChamp.sumPoints = sum;
     return await newChamp.save();
   }
 

@@ -1,8 +1,6 @@
 import { IsString, IsBoolean } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IOrg } from '../../org/interfaces';
 import { ITeam } from '../../team/interfaces';
-import { ICat } from '../../cat/interfaces';
 
 export class CreateDriverDto {
   @ApiProperty()
@@ -11,11 +9,7 @@ export class CreateDriverDto {
 
   @ApiProperty()
   @IsString()
-  readonly idOrg: IOrg;
-
-  @ApiProperty()
-  @IsString()
-  readonly idCat: ICat;
+  readonly idCategory: string;
 
   @ApiPropertyOptional()
   @IsString()

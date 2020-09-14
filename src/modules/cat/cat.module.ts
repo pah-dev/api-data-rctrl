@@ -12,5 +12,6 @@ import { OrgModule } from '../org/org.module';
   ],
   providers: [CatService],
   controllers: [CatController],
+  exports: [CatService],
 })
 export class CatModule {}

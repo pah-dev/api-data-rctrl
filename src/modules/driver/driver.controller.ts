@@ -51,6 +51,20 @@ export class DriverController {
     return res.status(HttpStatus.OK).json({ driver });
   }
 
+  @Post('/multicreate')
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async multiCreateDriver(
+    @Res() res,
+    @Body('data') createDriverDto: CreateDriverDto[],
+  ) {
+    const driver = await this.driverService.mulitCreate(createDriverDto);
+    return res.status(HttpStatus.OK).json({ driver });
+  }
+
   @Delete('/delete/:driverId')
   async deleteDriver(@Param('driverId') driverId: string, @Res() res) {
     const driverDeleted = await this.driverService.delete(driverId);

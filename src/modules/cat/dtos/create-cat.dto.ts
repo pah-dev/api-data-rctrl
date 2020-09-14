@@ -1,6 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
-import { IOrg } from '../../org/interfaces';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class CreateCatDto {
   @ApiProperty()
@@ -10,6 +9,10 @@ export class CreateCatDto {
   @ApiProperty()
   @IsString()
   readonly idOrg: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly idLeague: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -145,35 +148,35 @@ export class CreateCatDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatBadge: string;
+  readonly strBadge: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatJersey: string;
+  readonly strJersey: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatLogo: string;
+  readonly strLogo: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatFanart1: string;
+  readonly strFanart1: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatFanart2: string;
+  readonly strFanart2: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatFanart3: string;
+  readonly strFanart3: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatFanart4: string;
+  readonly strFanart4: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCatBanner: string;
+  readonly strBanner: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -184,10 +187,18 @@ export class CreateCatDto {
   readonly strLocked: string;
 
   @ApiPropertyOptional()
-  @IsString()
+  @IsBoolean()
   readonly infoInCat: boolean;
 
   @ApiPropertyOptional()
-  @IsString()
+  @IsBoolean()
   readonly isOnlyImg: boolean;
+
+  @ApiPropertyOptional()
+  @IsBoolean()
+  readonly isWorking: boolean;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly rank: number;
 }

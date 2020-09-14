@@ -59,11 +59,11 @@ export class OrgController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async multiCreateOrg(@Res() res, @Body('data') createOrgDto: CreateOrgDto[]) {
-    const org = [];
-    createOrgDto.forEach(async element => {
-      org.push(await this.orgService.create(element));
-    });
-    return res.status(HttpStatus.OK).json({ org });
+    const newOrg = [];
+    for (const org of createOrgDto) {
+      newOrg.push(await this.orgService.create(org));
+    }
+    return res.status(HttpStatus.OK).json(newOrg);
   }
 
   @Delete('/delete/:orgId')

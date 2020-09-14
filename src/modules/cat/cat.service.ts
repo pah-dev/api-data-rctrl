@@ -28,9 +28,12 @@ export class CatService implements ICatService {
   async create(createCatDto: CreateCatDto): Promise<any> {
     try {
       const newCat = new this.catModel(createCatDto);
+      const org = await this.orgService.findOne({ idLeague: newCat.idLeague });
+      newCat.idOrg = org._id;
       const savedCat = await newCat.save();
       if (savedCat._id) {
-        await this.orgService.addCategory(createCatDto.idOrg, savedCat._id);
+        org.categories.push(savedCat._id);
+        await this.orgService.update(org._id, org);
       }
       return savedCat;
     } catch (err) {
