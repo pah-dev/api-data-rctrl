@@ -16,6 +16,14 @@ export class CreateEventDto {
   @IsString()
   readonly strEventAlternate: string;
 
+  @ApiProperty()
+  @IsString()
+  readonly idLeague: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idCategory: string;
+
   @ApiPropertyOptional()
   @IsString()
   readonly idEspn: string;
@@ -43,14 +51,6 @@ export class CreateEventDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strSport: string;
-
-  @ApiProperty()
-  @IsString()
-  readonly idOrg: IOrg;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly categories: ICat[];
 
   @ApiPropertyOptional()
   @IsString()
@@ -127,6 +127,10 @@ export class CreateEventDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strMap: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strRSS: string;
 
   @ApiPropertyOptional()
   @IsString()

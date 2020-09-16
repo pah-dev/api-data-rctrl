@@ -13,11 +13,11 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idTeam: ITeam;
+  readonly idTeam: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idTeam2: ITeam;
+  readonly idTeam2: string;
 
   @ApiPropertyOptional()
   @IsString()

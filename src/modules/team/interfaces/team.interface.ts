@@ -5,8 +5,8 @@ import { ICat } from '../../cat/interfaces';
 
 export interface ITeam extends Document, BaseInterface {
   readonly idTeam: string;
-  readonly idLeague: IOrg;
-  readonly idCategory: ICat;
+  idOrg: string;
+  idCat: string;
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;

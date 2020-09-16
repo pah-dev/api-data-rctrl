@@ -4,12 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IDriver, IDriverService } from './interfaces';
 import { CreateDriverDto, UpdateDriverDto } from './dtos';
 import { CatService } from '../cat/cat.service';
+import { TeamService } from '../team/team.service';
 
 @Injectable()
 export class DriverService implements IDriverService {
   constructor(
     @InjectModel('Drivers') private readonly driverModel: Model<IDriver>,
     private catService: CatService,
+    private teamService: TeamService,
   ) {}
 
   async findAll(): Promise<IDriver[]> {
@@ -40,15 +42,20 @@ export class DriverService implements IDriverService {
   async mulitCreate(createDriverDto: CreateDriverDto[]): Promise<any> {
     const ret = [];
     try {
-      Logger.log(createDriverDto.length);
       const cat = await this.catService.findOne({
         idCategory: createDriverDto[0].idCategory,
       });
       for (const driver of createDriverDto) {
         const newDriver = new this.driverModel(driver);
-        newDriver.idCat = cat._id;
-        newDriver.idOrg = cat.idOrg;
-        ret.push(await newDriver.save());
+        const team = await this.teamService.findOne({ idTeam: driver.idTeam });
+        try {
+          newDriver.idTeam = team?._id;
+          newDriver.idCat = cat._id;
+          newDriver.idOrg = cat.idOrg;
+          ret.push(await newDriver.save());
+        } catch (error) {
+          Logger.error('Error saving Driver: ' + driver.idPlayer);
+        }
       }
     } catch (error) {
       Logger.error(error);

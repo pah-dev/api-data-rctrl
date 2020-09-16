@@ -3,10 +3,14 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ITeam, ITeamService } from './interfaces';
 import { CreateTeamDto, UpdateTeamDto } from './dtos';
+import { CatService } from '../cat/cat.service';
 
 @Injectable()
 export class TeamService implements ITeamService {
-  constructor(@InjectModel('Teams') private readonly teamModel: Model<ITeam>) {}
+  constructor(
+    @InjectModel('Teams') private readonly teamModel: Model<ITeam>,
+    private catService: CatService,
+  ) {}
 
   async findAll(): Promise<ITeam[]> {
     return await this.teamModel.find().exec();
@@ -23,6 +27,28 @@ export class TeamService implements ITeamService {
   async create(createTeamDto: CreateTeamDto): Promise<ITeam> {
     const newTeam = new this.teamModel(createTeamDto);
     return await newTeam.save();
+  }
+
+  async multicreate(createTeamDto: CreateTeamDto[]): Promise<any> {
+    const ret = [];
+    try {
+      const cat = await this.catService.findOne({
+        idCategory: createTeamDto[0].idCategory,
+      });
+      for (const team of createTeamDto) {
+        try {
+          const newTeam = new this.teamModel(team);
+          newTeam.idCat = cat._id;
+          newTeam.idOrg = cat.idOrg;
+          ret.push(await newTeam.save());
+        } catch (error) {
+          Logger.error('Error saving Team: ' + team.idTeam);
+        }
+      }
+    } catch (error) {
+      Logger.error(error);
+    }
+    return ret;
   }
 
   async update(teamId: string, newTeam: UpdateTeamDto): Promise<ITeam> {

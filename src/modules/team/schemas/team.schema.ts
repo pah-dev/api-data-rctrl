@@ -2,9 +2,9 @@ import { Schema } from 'mongoose';
 
 export const TeamSchema = new Schema(
   {
-    idTeam: { type: String, required: true },
-    idLeague: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
-    idCategory: { type: Schema.Types.ObjectId, ref: 'Cats', required: true },
+    idTeam: { type: String, required: true, unique: true },
+    idOrg: { type: Schema.Types.ObjectId, ref: 'Orgs', required: true },
+    idCat: { type: Schema.Types.ObjectId, ref: 'Cats', required: true },
     idEspn: { type: String, default: '' },
     idTsdb: { type: String, default: '' },
     idMss: { type: String, default: '' },

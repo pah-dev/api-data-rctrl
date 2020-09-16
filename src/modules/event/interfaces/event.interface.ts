@@ -1,7 +1,5 @@
 import { Document } from 'mongoose';
-import { IOrg } from '../../org/interfaces';
 import { BaseInterface } from '../../../shared/base.interface';
-import { ICat } from '../../cat/interfaces';
 
 export interface IEvent extends Document, BaseInterface {
   readonly idEvent: string;
@@ -9,8 +7,8 @@ export interface IEvent extends Document, BaseInterface {
   readonly strEventAlternate: string;
   readonly strFilename: string;
   readonly strSport: string;
-  readonly idOrg: IOrg;
-  readonly categories: ICat[];
+  idOrg: string;
+  categories: string[];
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
@@ -35,6 +33,7 @@ export interface IEvent extends Document, BaseInterface {
   readonly strThumb: string;
   readonly strBanner: string;
   readonly strMap: string;
+  readonly strRss: string;
   readonly strTweet1: string;
   readonly strTweet2: string;
   readonly strTweet3: string;

@@ -29,7 +29,6 @@ export class TeamController {
   @Get('/:teamId')
   async getTeam(@Res() res, @Param('teamId') teamId: string) {
     const team = await this.teamService.findById(teamId);
-    //if (!team) throw new NotFoundException('Team does not exists');
     return res.status(HttpStatus.OK).json(team);
   }
 
@@ -48,6 +47,17 @@ export class TeamController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async createTeam(@Res() res, @Body() createTeamDto: CreateTeamDto) {
     const team = await this.teamService.create(createTeamDto);
+    return res.status(HttpStatus.OK).json({ team });
+  }
+
+  @Post('/multicreate')
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async multiCreateTeam(@Res() res, @Body() createTeamDto: CreateTeamDto[]) {
+    const team = await this.teamService.multicreate(createTeamDto);
     return res.status(HttpStatus.OK).json({ team });
   }
 

@@ -46,7 +46,7 @@ export class EventController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async createEvent(@Res() res, @Body() createEventDto: CreateEventDto) {
+  async createEvent(@Res() res, @Body() createEventDto: CreateEventDto[]) {
     const event = await this.eventService.create(createEventDto);
     return res.status(HttpStatus.OK).json({ event });
   }

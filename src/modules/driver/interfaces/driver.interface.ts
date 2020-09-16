@@ -1,6 +1,5 @@
 import { Document } from 'mongoose';
 import { BaseInterface } from '../../../shared/base.interface';
-import { ITeam } from '../../team/interfaces';
 
 export interface IDriver extends Document, BaseInterface {
   readonly idPlayer: string;

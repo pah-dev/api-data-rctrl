@@ -33,6 +33,7 @@ export const EventSchema = new Schema(
     strThumb: { type: String, default: '' },
     strBanner: { type: String, default: '' },
     strMap: { type: String, default: '' },
+    strRSS: { type: String, default: '' },
     strTweet1: { type: String, default: '' },
     strTweet2: { type: String, default: '' },
     strTweet3: { type: String, default: '' },

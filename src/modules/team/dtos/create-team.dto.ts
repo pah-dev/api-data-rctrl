@@ -10,11 +10,11 @@ export class CreateTeamDto {
 
   @ApiProperty()
   @IsString()
-  readonly idLeague: IOrg;
+  readonly idLeague: string;
 
   @ApiProperty()
   @IsString()
-  readonly idCategory: ICat;
+  readonly idCategory: string;
 
   @ApiPropertyOptional()
   @IsString()
