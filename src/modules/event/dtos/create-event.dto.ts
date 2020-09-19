@@ -98,6 +98,10 @@ export class CreateEventDto {
 
   @ApiPropertyOptional()
   @IsString()
+  readonly idCircuit: string;
+
+  @ApiPropertyOptional()
+  @IsString()
   readonly strCircuit: string;
 
   @ApiPropertyOptional()

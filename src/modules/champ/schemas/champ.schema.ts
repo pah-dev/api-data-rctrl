@@ -19,6 +19,7 @@ export const ChampSchema = new Schema(
       },
     ],
     sumPoints: { type: Number, default: 0 },
+    typeChamp: { type: String, default: 'D' },
   },
   {
     versionKey: false,

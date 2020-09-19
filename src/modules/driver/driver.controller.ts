@@ -46,22 +46,11 @@ export class DriverController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async createDriver(@Res() res, @Body() createDriverDto: CreateDriverDto) {
-    const driver = await this.driverService.create(createDriverDto);
-    return res.status(HttpStatus.OK).json({ driver });
-  }
-
-  @Post('/multicreate')
-  @ApiResponse({
-    status: 201,
-    description: 'The record has been successfully created.',
-  })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
   async multiCreateDriver(
     @Res() res,
     @Body() createDriverDto: CreateDriverDto[],
   ) {
-    const driver = await this.driverService.mulitCreate(createDriverDto);
+    const driver = await this.driverService.create(createDriverDto);
     return res.status(HttpStatus.OK).json({ driver });
   }
 

@@ -45,7 +45,7 @@ export class ChampController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async createChamp(@Res() res, @Body() createChampDto: CreateChampDto) {
+  async createChamp(@Res() res, @Body() createChampDto: CreateChampDto[]) {
     const champ = await this.champService.create(createChampDto);
     return res.status(HttpStatus.OK).json({ champ });
   }

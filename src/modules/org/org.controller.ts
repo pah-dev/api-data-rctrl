@@ -8,7 +8,7 @@ import {
   Body,
   Param,
   HttpStatus,
-  ParseIntPipe,
+  Logger,
 } from '@nestjs/common';
 import { CreateOrgDto, UpdateOrgDto } from './dtos';
 import { OrgService } from './org.service';
@@ -47,23 +47,9 @@ export class OrgController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async createOrg(@Res() res, @Body() createOrgDto: CreateOrgDto) {
+  async createOrg(@Res() res, @Body() createOrgDto: CreateOrgDto[]) {
     const org = await this.orgService.create(createOrgDto);
-    return res.status(HttpStatus.OK).json({ org });
-  }
-
-  @Post('/multicreate')
-  @ApiResponse({
-    status: 201,
-    description: 'The record has been successfully created.',
-  })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async multiCreateOrg(@Res() res, @Body('data') createOrgDto: CreateOrgDto[]) {
-    const newOrg = [];
-    for (const org of createOrgDto) {
-      newOrg.push(await this.orgService.create(org));
-    }
-    return res.status(HttpStatus.OK).json(newOrg);
+    return res.status(HttpStatus.OK).json(org);
   }
 
   @Delete('/delete/:orgId')

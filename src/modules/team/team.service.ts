@@ -24,12 +24,7 @@ export class TeamService implements ITeamService {
     return await this.teamModel.findOne(options).exec();
   }
 
-  async create(createTeamDto: CreateTeamDto): Promise<ITeam> {
-    const newTeam = new this.teamModel(createTeamDto);
-    return await newTeam.save();
-  }
-
-  async multicreate(createTeamDto: CreateTeamDto[]): Promise<any> {
+  async create(createTeamDto: CreateTeamDto[]): Promise<any> {
     const ret = [];
     try {
       const cat = await this.catService.findOne({
@@ -42,7 +37,8 @@ export class TeamService implements ITeamService {
           newTeam.idOrg = cat.idOrg;
           ret.push(await newTeam.save());
         } catch (error) {
-          Logger.error('Error saving Team: ' + team.idTeam);
+          Logger.error('Error saving Team: ' + team.idTeam + error);
+          ret.push('Error saving Team: ' + team.idTeam);
         }
       }
     } catch (error) {

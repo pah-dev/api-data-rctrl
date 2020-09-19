@@ -3,42 +3,67 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { IChamp, IChampService } from './interfaces';
 import { CreateChampDto, UpdateChampDto } from './dtos';
+import { CatService } from '../cat/cat.service';
+import { DriverService } from '../driver/driver.service';
 
 @Injectable()
 export class ChampService implements IChampService {
   constructor(
     @InjectModel('Champs') private readonly champModel: Model<IChamp>,
+    private catService: CatService,
+    private driverService: DriverService,
   ) {}
 
   async findAll(): Promise<IChamp[]> {
     return await this.champModel
       .find()
-      .populate('data.idPlayer')
+      .populate('data.idDriver')
       .exec();
   }
 
   async findById(champId: string): Promise<IChamp> {
     return await this.champModel
       .findById(champId)
-      .populate('data.idPlayer')
+      .populate('data.idDriver')
       .exec();
   }
 
   async findOne(options: object): Promise<IChamp> {
     return await this.champModel
       .findOne(options)
-      .populate('idPlayer')
+      .populate('idDriver')
       .exec();
   }
 
-  async create(createChampDto: CreateChampDto): Promise<IChamp> {
-    const newChamp = new this.champModel(createChampDto);
-    let sum = 0;
-    for (const element of newChamp.data) {
-      sum += element.totalPoints;
+  async create(createChampDto: CreateChampDto[]): Promise<any> {
+    const ret = [];
+    try {
+      const cat = await this.catService.findOne({
+        idCategory: createChampDto[0].idCategory,
+      });
+      for (const champ of createChampDto) {
+        const newChamp = new this.champModel(champ);
+        for (let i = 0; i < champ.data.length; i++) {
+          const driv = await this.driverService.findOne({
+            idRCtrl: champ.data[i].idPlayer,
+          });
+          newChamp.data[i].idDriver = driv._id;
+        }
+        try {
+          newChamp.idOrg = cat.idOrg;
+          newChamp.idCat = cat._id;
+          ret.push(await newChamp.save());
+        } catch (error) {
+          Logger.error(
+            'Error saving Championship: ' + champ.idCategory + error,
+          );
+          ret.push('Error saving Championship: ' + champ.idCategory);
+        }
+      }
+    } catch (error) {
+      Logger.error('Error:' + error);
     }
-    newChamp.sumPoints = sum;
-    return await newChamp.save();
+    return ret;
   }
 
   async update(champId: string, newChamp: UpdateChampDto): Promise<IChamp> {

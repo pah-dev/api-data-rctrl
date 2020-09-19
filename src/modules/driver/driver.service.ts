@@ -29,17 +29,7 @@ export class DriverService implements IDriverService {
     return await this.driverModel.findOne(options).exec();
   }
 
-  async create(createDriverDto: CreateDriverDto): Promise<IDriver> {
-    const newDriver = new this.driverModel(createDriverDto);
-    const cat = await this.catService.findOne({
-      idCategory: createDriverDto.idCategory,
-    });
-    newDriver.idCat = cat._id;
-    newDriver.idOrg = cat.idOrg;
-    return await newDriver.save();
-  }
-
-  async mulitCreate(createDriverDto: CreateDriverDto[]): Promise<any> {
+  async create(createDriverDto: CreateDriverDto[]): Promise<any> {
     const ret = [];
     try {
       const cat = await this.catService.findOne({
@@ -49,12 +39,17 @@ export class DriverService implements IDriverService {
         const newDriver = new this.driverModel(driver);
         const team = await this.teamService.findOne({ idTeam: driver.idTeam });
         try {
-          newDriver.idTeam = team?._id;
+          if (team) {
+            newDriver.idTeam = team._id;
+          } else {
+            newDriver.idTeam = undefined;
+          }
           newDriver.idCat = cat._id;
           newDriver.idOrg = cat.idOrg;
           ret.push(await newDriver.save());
         } catch (error) {
-          Logger.error('Error saving Driver: ' + driver.idPlayer);
+          Logger.error('Error saving Driver: ' + driver.idPlayer + error);
+          ret.push('Error saving Driver: ' + driver.idPlayer);
         }
       }
     } catch (error) {
@@ -65,11 +60,9 @@ export class DriverService implements IDriverService {
 
   async update(driverId: string, newDriver: UpdateDriverDto): Promise<IDriver> {
     const driver = await this.driverModel.findById(driverId).exec();
-
     if (!driver._id) {
       Logger.log('Driver not found');
     }
-
     return await this.driverModel
       .findByIdAndUpdate(driverId, newDriver, { new: true })
       .exec();

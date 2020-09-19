@@ -29,9 +29,22 @@ export class OrgService implements IOrgService {
       .exec();
   }
 
-  async create(createOrgDto: CreateOrgDto): Promise<IOrg> {
-    const newOrg = new this.orgModel(createOrgDto);
-    return await newOrg.save();
+  async create(createOrgDto: CreateOrgDto[]): Promise<any> {
+    const ret = [];
+    try {
+      for (const org of createOrgDto) {
+        const newOrg = new this.orgModel(org);
+        try {
+          ret.push(await newOrg.save());
+        } catch (error) {
+          Logger.error('Error saving Organization: ' + org.idLeague + error);
+          ret.push('Error saving Organization: ' + org.idLeague);
+        }
+      }
+    } catch (error) {
+      Logger.error(error);
+    }
+    return ret;
   }
 
   async update(orgId: string, newOrg: UpdateOrgDto): Promise<IOrg> {

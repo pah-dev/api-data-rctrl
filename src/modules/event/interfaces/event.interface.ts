@@ -25,6 +25,7 @@ export interface IEvent extends Document, BaseInterface {
   readonly strTimeLocal: string;
   readonly strTVStation: string;
   readonly strResult: string;
+  readonly idCircuit: string;
   readonly strCircuit: string;
   readonly strCountry: string;
   readonly strCity: string;

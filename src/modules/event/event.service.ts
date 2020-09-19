@@ -37,7 +37,7 @@ export class EventService implements IEventService {
           newEvent.categories.push(cat._id);
           ret.push(await newEvent.save());
         } catch (error) {
-          Logger.error('Error saving Event: ' + error);
+          Logger.error('Error saving Event: ' + event.idEvent + error);
           ret.push('Error saving Event: ' + event.idEvent);
         }
       }

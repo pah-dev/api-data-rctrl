@@ -25,23 +25,31 @@ export class CatService implements ICatService {
     return await this.catModel.findOne(options).exec();
   }
 
-  async create(createCatDto: CreateCatDto): Promise<any> {
+  async create(createCatDto: CreateCatDto[]): Promise<any> {
+    const ret = [];
     try {
-      const newCat = new this.catModel(createCatDto);
-      const org = await this.orgService.findOne({ idLeague: newCat.idLeague });
-      newCat.idOrg = org._id;
-      const savedCat = await newCat.save();
-      if (savedCat._id) {
-        org.categories.push(savedCat._id);
-        await this.orgService.update(org._id, org);
+      const org = await this.orgService.findOne({
+        idLeague: createCatDto[0].idLeague,
+      });
+      for (const cat of createCatDto) {
+        const newCat = new this.catModel(cat);
+        try {
+          newCat.idOrg = org._id;
+          const savedCat = await newCat.save();
+          if (savedCat._id) {
+            org.categories.push(savedCat._id);
+            await this.orgService.update(org._id, org);
+          }
+          ret.push(savedCat);
+        } catch (error) {
+          Logger.error('Error saving Category: ' + cat.idCategory + error);
+          ret.push('Error saving Category: ' + cat.idCategory);
+        }
       }
-      return savedCat;
     } catch (err) {
       Logger.error(err, 'CreateCategory');
-      return (
-        'The Category ' + createCatDto.idCategory + ' could not be created'
-      );
     }
+    return ret;
   }
 
   async update(catId: string, newCat: UpdateCatDto): Promise<ICat> {

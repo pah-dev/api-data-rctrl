@@ -46,23 +46,9 @@ export class CatController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async createCat(@Res() res, @Body() createCatDto: CreateCatDto) {
+  async createCat(@Res() res, @Body() createCatDto: CreateCatDto[]) {
     const cat = await this.catService.create(createCatDto);
-    return res.status(HttpStatus.OK).json({ cat });
-  }
-
-  @Post('/multicreate')
-  @ApiResponse({
-    status: 201,
-    description: 'The record has been successfully created.',
-  })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async multiCreateCat(@Res() res, @Body('data') createCatDto: CreateCatDto[]) {
-    const newCat = [];
-    for (const cat of createCatDto) {
-      newCat.push(await this.catService.create(cat));
-    }
-    return res.status(HttpStatus.OK).json(newCat);
+    return res.status(HttpStatus.OK).json(cat);
   }
 
   @Delete('/delete/:catId')

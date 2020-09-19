@@ -25,6 +25,7 @@ export const EventSchema = new Schema(
     strTimeLocal: { type: String, default: '' },
     strTVStation: { type: String, default: '' },
     strResult: { type: String, default: '' },
+    idCircuit: { type: String, default: '' },
     strCircuit: { type: String, default: '' },
     strCountry: { type: String, default: '' },
     strCity: { type: String, default: '' },
