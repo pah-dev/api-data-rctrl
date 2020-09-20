@@ -29,6 +29,13 @@ export class DriverService implements IDriverService {
     return await this.driverModel.findOne(options).exec();
   }
 
+  async getDriversCat(catId: string): Promise<IDriver[]> {
+    return await this.driverModel
+      .find()
+      .populate('idLeague')
+      .exec();
+  }
+
   async create(createDriverDto: CreateDriverDto[]): Promise<any> {
     const ret = [];
     try {

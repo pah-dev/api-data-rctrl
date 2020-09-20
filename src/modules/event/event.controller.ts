@@ -29,8 +29,17 @@ export class EventController {
   @Get('/:eventId')
   async getEvent(@Res() res, @Param('eventId') eventId: string) {
     const event = await this.eventService.findById(eventId);
-    //if (!event) throw new NotFoundException('Event does not exists');
     return res.status(HttpStatus.OK).json(event);
+  }
+
+  @Get('/cat/:catId/:year')
+  async getEventsCat(
+    @Res() res,
+    @Param('catId') catId: string,
+    @Param('year') year: string,
+  ) {
+    const events = await this.eventService.getEventsCat(catId, year);
+    return res.status(HttpStatus.OK).json(events);
   }
 
   @Get('/find')

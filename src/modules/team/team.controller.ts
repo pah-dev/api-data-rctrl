@@ -32,11 +32,17 @@ export class TeamController {
     return res.status(HttpStatus.OK).json(team);
   }
 
+  @Get('/cat/:catId')
+  async getTeamsCat(@Res() res, @Param('catId') catId: string) {
+    const teams = await this.teamService.getTeamsCat(catId);
+    return res.status(HttpStatus.OK).json(teams);
+  }
+
   @Get('/find')
-  public async findTodo(@Res() res, @Body() body) {
+  public async findTeam(@Res() res, @Body() body) {
     const queryCondition = body;
-    const todos = await this.teamService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(todos);
+    const teams = await this.teamService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(teams);
   }
 
   @Post('/create')

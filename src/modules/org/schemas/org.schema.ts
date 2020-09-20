@@ -2,10 +2,10 @@ import { Schema } from 'mongoose';
 
 export const OrgSchema = new Schema(
   {
-    idLeague: { type: String, required: true, unique: true },
-    strLeague: { type: String, required: true },
-    strLeagueAlternate: { type: String, default: '' },
-    alias: { type: String, default: '' },
+    idOrg: { type: String, required: true, unique: true },
+    strOrg: { type: String, required: true },
+    strOrgShort: { type: String, default: '' },
+    strOrgAlternate: { type: String, default: '' },
     categories: [{ type: Schema.Types.ObjectId, ref: 'Cats' }],
     strSection: { type: String, default: '' },
     idEspn: { type: String, default: '' },

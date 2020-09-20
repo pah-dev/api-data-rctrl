@@ -4,27 +4,11 @@ import { IsBoolean, IsNumber, IsString } from 'class-validator';
 export class CreateCatDto {
   @ApiProperty()
   @IsString()
-  readonly idCategory: string;
-
-  @ApiProperty()
-  @IsString()
-  readonly idOrg: string;
-
-  @ApiProperty()
-  @IsString()
   readonly idLeague: string;
 
-  @ApiPropertyOptional()
+  @ApiProperty()
   @IsString()
-  readonly strCat: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strCatShort: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strAlternate: string;
+  readonly idOrganization: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -46,9 +30,25 @@ export class CreateCatDto {
   @IsString()
   readonly idRCtrl: string;
 
+  @ApiProperty()
+  @IsString()
+  readonly strLeague: string;
+
   @ApiPropertyOptional()
   @IsString()
-  readonly intFormedYear: string;
+  readonly strLeagueShort: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLeagueAlternate: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idSoccerXML: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idAPIfootball: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -56,15 +56,27 @@ export class CreateCatDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeague: string;
-
-  @ApiPropertyOptional()
-  @IsString()
   readonly strDivision: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strManager: string;
+  readonly idCup: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCurrentSeason: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly intFormedYear: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strGender: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCountry: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -81,6 +93,14 @@ export class CreateCatDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strInstagram: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strYoutube: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strRSS: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -144,22 +164,6 @@ export class CreateCatDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCountry: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strBadge: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strJersey: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strLogo: string;
-
-  @ApiPropertyOptional()
-  @IsString()
   readonly strFanart1: string;
 
   @ApiPropertyOptional()
@@ -180,11 +184,54 @@ export class CreateCatDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strYoutube: string;
+  readonly strBadge: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLogo: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strPoster: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strTrophy: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strNaming: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strComplete: string;
 
   @ApiPropertyOptional()
   @IsString()
   readonly strLocked: string;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly rank: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly chYearIni: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly chYearFin: number;
+
+  @ApiPropertyOptional()
+  readonly chTypes: [];
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly evYearIni: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly evYearFin: number;
 
   @ApiPropertyOptional()
   @IsBoolean()
@@ -197,8 +244,4 @@ export class CreateCatDto {
   @ApiPropertyOptional()
   @IsBoolean()
   readonly isWorking: boolean;
-
-  @ApiPropertyOptional()
-  @IsNumber()
-  readonly rank: number;
 }

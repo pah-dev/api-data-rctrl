@@ -38,9 +38,9 @@ export class OrgService implements IOrgService {
           ret.push(await newOrg.save());
         } catch (error) {
           Logger.error(
-            'Error saving Organization: ' + org.idLeague + ' - ' + error,
+            'Error saving Organization: ' + org.idOrg + ' - ' + error,
           );
-          ret.push('Error saving Organization: ' + org.idLeague);
+          ret.push('Error saving Organization: ' + org.idOrg);
         }
       }
     } catch (error) {

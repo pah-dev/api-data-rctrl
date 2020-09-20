@@ -2,11 +2,11 @@ import { Document } from 'mongoose';
 import { BaseInterface } from '../../../shared/base.interface';
 
 export interface IOrg extends Document, BaseInterface {
-  readonly idLeague: string;
-  readonly strLeague: string;
-  readonly strLeagueAlternate: string;
-  readonly alias: string;
-  readonly categories: any[];
+  readonly idOrg: string;
+  readonly strOrg: string;
+  readonly strOrgShort: string;
+  readonly strOrgAlternate: string;
+  categories: string[];
   readonly strSeccion: string;
   readonly idEspn: string;
   readonly idTsdb: string;

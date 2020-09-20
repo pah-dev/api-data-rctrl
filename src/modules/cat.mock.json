@@ -2850,7 +2850,7 @@
     "isOnlyImg": false
   },
   {
-    "idCategory": "tcp1",
+    "idCategory": "tpc1",
     "idOrg": "hh5f5e778816fed73fdc6799ca",
     "strCat": "TP C1",
     "strCatShort": "TP C1",
@@ -2859,7 +2859,7 @@
     "idEspn": "",
     "idTsdb": "",
     "idMss": "",
-    "idRCtrl": "tcp1",
+    "idRCtrl": "tpc1",
     "intFormedYear": "",
     "strSport": "",
     "strLeague": "APTP",
@@ -2900,7 +2900,7 @@
     "isOnlyImg": false
   },
   {
-    "idCategory": "tcp2",
+    "idCategory": "tpc2",
     "idOrg": "hh5f5e778816fed73fdc6799ca",
     "strCat": "TP C2",
     "strCatShort": "TP C2",
@@ -2909,7 +2909,7 @@
     "idEspn": "",
     "idTsdb": "",
     "idMss": "",
-    "idRCtrl": "tcp2",
+    "idRCtrl": "tpc2",
     "intFormedYear": "",
     "strSport": "",
     "strLeague": "APTP",

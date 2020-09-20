@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto } from './dtos';
 import { CatService } from './cat.service';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('cat')
 @Controller('cat')
@@ -29,15 +29,20 @@ export class CatController {
   @Get('/:catId')
   async getCat(@Res() res, @Param('catId') catId: string) {
     const cat = await this.catService.findById(catId);
-    //if (!cat) throw new NotFoundException('Cat does not exists');
     return res.status(HttpStatus.OK).json(cat);
   }
 
   @Get('/find')
-  public async findTodo(@Res() res, @Body() body) {
+  public async findCat(@Res() res, @Body() body) {
     const queryCondition = body;
-    const todos = await this.catService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(todos);
+    const cats = await this.catService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(cats);
+  }
+
+  @Get('/info/:catId')
+  async getInfo(@Res() res, @Param('catId') catId: string) {
+    const cat = await this.catService.info(catId);
+    return res.status(HttpStatus.OK).json(cat);
   }
 
   @Post('/create')

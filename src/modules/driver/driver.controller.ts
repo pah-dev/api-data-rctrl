@@ -33,6 +33,14 @@ export class DriverController {
     return res.status(HttpStatus.OK).json(driver);
   }
 
+  @Get('/cat/:catId')
+  async getDriversCat(@Res() res, @Param('catId') catId: string) {
+    const drivers = await this.driverService.getDriversCat(catId);
+    return res.status(HttpStatus.OK).json({
+      drivers,
+    });
+  }
+
   @Get('/find')
   public async findTodo(@Res() res, @Body() body) {
     const queryCondition = body;

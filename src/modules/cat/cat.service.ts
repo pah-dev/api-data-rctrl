@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ICat, ICatService } from './interfaces';
 import { CreateCatDto, UpdateCatDto } from './dtos';
 import { OrgService } from '../org/org.service';
-import { AnyARecord } from 'dns';
 
 @Injectable()
 export class CatService implements ICatService {
@@ -25,12 +24,19 @@ export class CatService implements ICatService {
     return await this.catModel.findOne(options).exec();
   }
 
+  async info(catId: string): Promise<ICat> {
+    return await this.catModel
+      .findOne({ idRCtrl: catId })
+      .populate('idOrg')
+      .exec();
+  }
+
   async create(createCatDto: CreateCatDto[]): Promise<any> {
     const ret = [];
     try {
       for (const cat of createCatDto) {
         const org = await this.orgService.findOne({
-          idLeague: cat.idLeague,
+          idOrg: cat.idOrganization,
         });
         const newCat = new this.catModel(cat);
         try {
@@ -43,9 +49,9 @@ export class CatService implements ICatService {
           ret.push(savedCat);
         } catch (error) {
           Logger.error(
-            'Error saving Category: ' + cat.idCategory + ' - ' + error,
+            'Error saving Category: ' + cat.idLeague + ' - ' + error,
           );
-          ret.push('Error saving Category: ' + cat.idCategory);
+          ret.push('Error saving Category: ' + cat.idLeague);
         }
       }
     } catch (err) {

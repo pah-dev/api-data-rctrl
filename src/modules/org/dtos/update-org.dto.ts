@@ -1,22 +1,21 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
-import { ICat } from '../../cat/interfaces';
 
 export class UpdateOrgDto {
   @ApiProperty({ description: 'Organization name' })
   @IsString()
-  readonly strLeague: string;
+  readonly strOrg: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLeagueAlternate?: string;
+  readonly strOrgShort: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly alias?: string;
+  readonly strOrgAlternate: string;
 
   @ApiProperty()
-  readonly categories: ICat[];
+  readonly categories: string[];
 
   @ApiPropertyOptional()
   @IsString()
@@ -40,129 +39,129 @@ export class UpdateOrgDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly intFormedYear?: string;
+  readonly intFormedYear: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCurrentSeason?: string;
+  readonly strCurrentSeason: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCountry?: string;
+  readonly strCountry: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strWebsite?: string;
+  readonly strWebsite: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFacebook?: string;
+  readonly strFacebook: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTwitter?: string;
+  readonly strTwitter: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strYoutube?: string;
+  readonly strYoutube: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strInstagram?: string;
+  readonly strInstagram: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionEN?: string;
+  readonly strDescriptionEN: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionDE?: string;
+  readonly strDescriptionDE: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionFR?: string;
+  readonly strDescriptionFR: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionIT?: string;
+  readonly strDescriptionIT: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionCN?: string;
+  readonly strDescriptionCN: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionJP?: string;
+  readonly strDescriptionJP: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionRU?: string;
+  readonly strDescriptionRU: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionES?: string;
+  readonly strDescriptionES: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionPT?: string;
+  readonly strDescriptionPT: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionSE?: string;
+  readonly strDescriptionSE: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionNL?: string;
+  readonly strDescriptionNL: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionHU?: string;
+  readonly strDescriptionHU: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionNO?: string;
+  readonly strDescriptionNO: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionPL?: string;
+  readonly strDescriptionPL: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strDescriptionIL?: string;
+  readonly strDescriptionIL: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFanart1?: string;
+  readonly strFanart1: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFanart2?: string;
+  readonly strFanart2: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFanart3?: string;
+  readonly strFanart3: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFanart4?: string;
+  readonly strFanart4: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strBanner?: string;
+  readonly strBanner: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strBadge?: string;
+  readonly strBadge: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strLogo?: string;
+  readonly strLogo: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strPoster?: string;
+  readonly strPoster: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strTrophy?: string;
+  readonly strTrophy: string;
 }

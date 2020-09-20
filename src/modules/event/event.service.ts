@@ -24,6 +24,13 @@ export class EventService implements IEventService {
     return await this.eventModel.findOne(options).exec();
   }
 
+  async getEventsCat(catId: string, year: string): Promise<IEvent[]> {
+    return await this.eventModel
+      .find()
+      .populate('idLeague')
+      .exec();
+  }
+
   async create(createEventDto: CreateEventDto[]): Promise<any> {
     const ret = [];
     try {
