@@ -28,10 +28,10 @@ export class CatService implements ICatService {
   async create(createCatDto: CreateCatDto[]): Promise<any> {
     const ret = [];
     try {
-      const org = await this.orgService.findOne({
-        idLeague: createCatDto[0].idLeague,
-      });
       for (const cat of createCatDto) {
+        const org = await this.orgService.findOne({
+          idLeague: cat.idLeague,
+        });
         const newCat = new this.catModel(cat);
         try {
           newCat.idOrg = org._id;
@@ -42,7 +42,9 @@ export class CatService implements ICatService {
           }
           ret.push(savedCat);
         } catch (error) {
-          Logger.error('Error saving Category: ' + cat.idCategory + error);
+          Logger.error(
+            'Error saving Category: ' + cat.idCategory + ' - ' + error,
+          );
           ret.push('Error saving Category: ' + cat.idCategory);
         }
       }

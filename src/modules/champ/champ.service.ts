@@ -55,13 +55,13 @@ export class ChampService implements IChampService {
           ret.push(await newChamp.save());
         } catch (error) {
           Logger.error(
-            'Error saving Championship: ' + champ.idCategory + error,
+            'Error saving Championship: ' + champ.idCategory + ' - ' + error,
           );
           ret.push('Error saving Championship: ' + champ.idCategory);
         }
       }
     } catch (error) {
-      Logger.error('Error:' + error);
+      Logger.error('Error:' + ' - ' + error);
     }
     return ret;
   }

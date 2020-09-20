@@ -48,7 +48,9 @@ export class DriverService implements IDriverService {
           newDriver.idOrg = cat.idOrg;
           ret.push(await newDriver.save());
         } catch (error) {
-          Logger.error('Error saving Driver: ' + driver.idPlayer + error);
+          Logger.error(
+            'Error saving Driver: ' + driver.idPlayer + ' - ' + error,
+          );
           ret.push('Error saving Driver: ' + driver.idPlayer);
         }
       }
