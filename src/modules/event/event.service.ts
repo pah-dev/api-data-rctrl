@@ -4,12 +4,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IEvent, IEventService } from './interfaces';
 import { CreateEventDto, UpdateEventDto } from './dtos';
 import { CatService } from '../cat/cat.service';
+import { DriverService } from '../driver/driver.service';
+import { CircuitService } from '../circuit/circuit.service';
 
 @Injectable()
 export class EventService implements IEventService {
   constructor(
     @InjectModel('Events') private readonly eventModel: Model<IEvent>,
     private catService: CatService,
+    private driverService: DriverService,
+    private circuitService: CircuitService,
   ) {}
 
   async findAll(): Promise<IEvent[]> {
@@ -26,8 +30,9 @@ export class EventService implements IEventService {
 
   async getEventsCat(catId: string, year: string): Promise<IEvent[]> {
     return await this.eventModel
-      .find()
-      .populate('idLeague')
+      .find({ idCat: catId, numSeason: parseInt(year) })
+      .populate('idCat')
+      .populate('idCircuit')
       .exec();
   }
 
@@ -35,13 +40,23 @@ export class EventService implements IEventService {
     const ret = [];
     try {
       const cat = await this.catService.findOne({
-        idCategory: createEventDto[0].idCategory,
+        idLeague: createEventDto[0].idCategory,
       });
       for (const event of createEventDto) {
+        const driv = await this.driverService.findOne({
+          idRCtrl: event.idWinner,
+        });
+        const circuit = await this.circuitService.findOne({
+          idRCtrl: event.idCircuit,
+        });
         const newEvent = new this.eventModel(event);
         try {
+          if (driv) newEvent.idWinner = driv._id;
+          else newEvent.idWinner = undefined;
+          if (circuit) newEvent.idCircuit = circuit._id;
+          else newEvent.idCircuit = undefined;
           newEvent.idOrg = cat.idOrg;
-          newEvent.categories.push(cat._id);
+          newEvent.idCat = cat._id;
           ret.push(await newEvent.save());
         } catch (error) {
           Logger.error('Error saving Event: ' + event.idEvent + ' - ' + error);

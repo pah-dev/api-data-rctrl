@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import { ICat } from '../../cat/interfaces';
 import { IOrg } from '../../org/interfaces';
 
@@ -157,6 +157,10 @@ export class CreateTeamDto {
   readonly intStadiumCapacity: string;
 
   @ApiPropertyOptional()
+  @IsNumber()
+  readonly numSeason: number;
+
+  @ApiPropertyOptional()
   @IsString()
   readonly strWebsite: string;
 
@@ -171,6 +175,10 @@ export class CreateTeamDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strInstagram: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strYoutube: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -271,10 +279,6 @@ export class CreateTeamDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strTeamBanner: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strYoutube: string;
 
   @ApiPropertyOptional()
   @IsString()

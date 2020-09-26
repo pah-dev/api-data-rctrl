@@ -1,6 +1,6 @@
 import { IsString, MaxLength, IsNumber, IsUrl } from 'class-validator';
 
-export class UpdateTrackDto {
+export class UpdateCircuitDto {
   @IsString()
   @MaxLength(150, { message: 'This description is not valid' })
   readonly description: string;

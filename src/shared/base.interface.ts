@@ -1,4 +1,4 @@
 export interface BaseInterface {
-    readonly createdDate: Date;
-    readonly updatedDate: Date;
-};
+  readonly createdDate: Date;
+  readonly updatedDate: Date;
+}

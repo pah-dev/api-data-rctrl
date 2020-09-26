@@ -57,7 +57,7 @@ export const CatSchema = new Schema(
     rank: { type: Number, default: 999 },
     chYearIni: { type: Number, default: new Date().getFullYear() },
     chYearFin: { type: Number, default: new Date().getFullYear() },
-    chTypes: [{ type: String }],
+    chTypes: [{ type: String, default: 'D' }],
     evYearIni: { type: Number, default: new Date().getFullYear() },
     evYearFin: { type: Number, default: new Date().getFullYear() },
     infoInCat: { type: Boolean, default: false },

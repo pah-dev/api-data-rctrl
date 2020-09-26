@@ -32,9 +32,13 @@ export class TeamController {
     return res.status(HttpStatus.OK).json(team);
   }
 
-  @Get('/cat/:catId')
-  async getTeamsCat(@Res() res, @Param('catId') catId: string) {
-    const teams = await this.teamService.getTeamsCat(catId);
+  @Get('/cat/:catId/:year')
+  async getTeamsCat(
+    @Res() res,
+    @Param('catId') catId: string,
+    @Param('year') year: string,
+  ) {
+    const teams = await this.teamService.getTeamsCat(catId, year);
     return res.status(HttpStatus.OK).json(teams);
   }
 

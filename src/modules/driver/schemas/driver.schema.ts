@@ -50,6 +50,7 @@ export const DriverSchema = new Schema(
     strSide: { type: String, default: '' },
     strPosition: { type: String, default: '' },
     strCollege: { type: String, default: '' },
+    numSeason: { type: Number, default: new Date().getFullYear() },
     strFacebook: { type: String, default: '' },
     strWebsite: { type: String, default: '' },
     strTwitter: { type: String, default: '' },

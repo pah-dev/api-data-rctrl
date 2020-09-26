@@ -42,10 +42,12 @@ export interface ITeam extends Document, BaseInterface {
   readonly strStadiumDescription: string;
   readonly strStadiumLocation: string;
   readonly intStadiumCapacity: string;
+  readonly numSeason: number;
   readonly strWebsite: string;
   readonly strFacebook: string;
   readonly strTwitter: string;
   readonly strInstagram: string;
+  readonly strYoutube: string;
   readonly strDescriptionEN: string;
   readonly strDescriptionDE: string;
   readonly strDescriptionFR: string;
@@ -71,7 +73,6 @@ export interface ITeam extends Document, BaseInterface {
   readonly strTeamFanart3: string;
   readonly strTeamFanart4: string;
   readonly strTeamBanner: string;
-  readonly strYoutube: string;
   readonly strLocked: string;
   readonly isOnlyImg: boolean;
 }

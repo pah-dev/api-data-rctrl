@@ -31,7 +31,18 @@ export class ChampService implements IChampService {
   async findOne(options: object): Promise<IChamp> {
     return await this.champModel
       .findOne(options)
-      .populate('idDriver')
+      .populate('data.idDriver')
+      .exec();
+  }
+
+  async getChampCat(
+    catId: string,
+    year: string,
+    type: string,
+  ): Promise<IChamp> {
+    return await this.champModel
+      .findOne({ idRCtrl: catId, numSeason: parseInt(year), typeChamp: type })
+      .populate('data.idDriver')
       .exec();
   }
 
@@ -39,7 +50,7 @@ export class ChampService implements IChampService {
     const ret = [];
     try {
       const cat = await this.catService.findOne({
-        idCategory: createChampDto[0].idCategory,
+        idLeague: createChampDto[0].idCategory,
       });
       for (const champ of createChampDto) {
         const newChamp = new this.champModel(champ);

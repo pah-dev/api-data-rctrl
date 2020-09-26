@@ -3,7 +3,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { ReadTeamDto } from '../../team/dtos';
 
 @Exclude()
-export class ReadTrackDto {
+export class ReadCircuitDto {
   @Expose()
   readonly id: number;
 

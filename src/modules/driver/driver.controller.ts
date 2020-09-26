@@ -33,9 +33,13 @@ export class DriverController {
     return res.status(HttpStatus.OK).json(driver);
   }
 
-  @Get('/cat/:catId')
-  async getDriversCat(@Res() res, @Param('catId') catId: string) {
-    const drivers = await this.driverService.getDriversCat(catId);
+  @Get('/cat/:catId/:year')
+  async getDriversCat(
+    @Res() res,
+    @Param('catId') catId: string,
+    @Param('year') year: string,
+  ) {
+    const drivers = await this.driverService.getDriversCat(catId, year);
     return res.status(HttpStatus.OK).json({
       drivers,
     });

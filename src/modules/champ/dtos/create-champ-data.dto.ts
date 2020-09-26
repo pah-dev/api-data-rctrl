@@ -1,7 +1,11 @@
 import { IsNumber, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateChampDataDto {
+  @ApiProperty()
+  @IsString()
+  readonly idChamp: string;
+
   @ApiProperty()
   @IsString()
   readonly idPlayer: string;
@@ -13,4 +17,12 @@ export class CreateChampDataDto {
   @ApiProperty()
   @IsNumber()
   readonly totalPoints: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly difference: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  readonly cups: number;
 }

@@ -24,10 +24,10 @@ export class TeamService implements ITeamService {
     return await this.teamModel.findOne(options).exec();
   }
 
-  async getTeamsCat(catId: string): Promise<ITeam[]> {
+  async getTeamsCat(catId: string, year: string): Promise<ITeam[]> {
     return await this.teamModel
-      .find()
-      .populate('idLeague')
+      .find({ idCat: catId, numSeason: parseInt(year) })
+      .populate('idCat')
       .exec();
   }
 
@@ -35,7 +35,7 @@ export class TeamService implements ITeamService {
     const ret = [];
     try {
       const cat = await this.catService.findOne({
-        idCategory: createTeamDto[0].idCategory,
+        idLeague: createTeamDto[0].idCategory,
       });
       for (const team of createTeamDto) {
         try {

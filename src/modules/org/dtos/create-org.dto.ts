@@ -19,6 +19,10 @@ export class CreateOrgDto {
   @IsString()
   readonly strOrgAlternate: string;
 
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescription: string;
+
   @ApiProperty()
   readonly categories: ICat[];
 

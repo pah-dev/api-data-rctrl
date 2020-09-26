@@ -29,10 +29,10 @@ export class DriverService implements IDriverService {
     return await this.driverModel.findOne(options).exec();
   }
 
-  async getDriversCat(catId: string): Promise<IDriver[]> {
+  async getDriversCat(catId: string, year: string): Promise<IDriver[]> {
     return await this.driverModel
-      .find()
-      .populate('idLeague')
+      .find({ idCat: catId, numSeason: parseInt(year) })
+      .populate('idCat')
       .exec();
   }
 
@@ -40,7 +40,7 @@ export class DriverService implements IDriverService {
     const ret = [];
     try {
       const cat = await this.catService.findOne({
-        idCategory: createDriverDto[0].idCategory,
+        idLeague: createDriverDto[0].idCategory,
       });
       for (const driver of createDriverDto) {
         const newDriver = new this.driverModel(driver);

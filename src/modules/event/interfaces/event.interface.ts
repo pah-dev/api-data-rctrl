@@ -8,13 +8,14 @@ export interface IEvent extends Document, BaseInterface {
   readonly strFilename: string;
   readonly strSport: string;
   idOrg: string;
-  categories: string[];
+  idCat: string;
   readonly idEspn: string;
   readonly idTsdb: string;
   readonly idMss: string;
   readonly idMyL: string;
   readonly idRCtrl: string;
   readonly strLeague: string;
+  readonly numSeason: number;
   readonly strSeason: string;
   readonly strDescriptionEN: string;
   readonly intRound: string;
@@ -24,8 +25,9 @@ export interface IEvent extends Document, BaseInterface {
   readonly strTime: string;
   readonly strTimeLocal: string;
   readonly strTVStation: string;
+  idWinner: string;
   readonly strResult: string;
-  readonly idCircuit: string;
+  idCircuit: string;
   readonly strCircuit: string;
   readonly strCountry: string;
   readonly strCity: string;

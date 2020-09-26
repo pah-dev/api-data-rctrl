@@ -32,11 +32,22 @@ export class ChampController {
     return res.status(HttpStatus.OK).json(champ);
   }
 
+  @Get('/cat/:catId/:year/:type')
+  async getEventsCat(
+    @Res() res,
+    @Param('catId') catId: string,
+    @Param('year') year: string,
+    @Param('type') type: string,
+  ) {
+    const champ = await this.champService.getChampCat(catId, year, type);
+    return res.status(HttpStatus.OK).json(champ);
+  }
+
   @Get('/find')
-  public async findTodo(@Res() res, @Body() body) {
+  public async findChamp(@Res() res, @Body() body) {
     const queryCondition = body;
-    const todos = await this.champService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(todos);
+    const champ = await this.champService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(champ);
   }
 
   @Post('/create')

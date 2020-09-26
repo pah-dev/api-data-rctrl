@@ -1,7 +1,5 @@
 import { IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IOrg } from '../../org/interfaces';
-import { ICat } from '../../cat/interfaces';
 
 export class CreateEventDto {
   @ApiProperty()
@@ -58,6 +56,10 @@ export class CreateEventDto {
 
   @ApiPropertyOptional()
   @IsString()
+  readonly numSeason: string;
+
+  @ApiPropertyOptional()
+  @IsString()
   readonly strSeason: string;
 
   @ApiPropertyOptional()
@@ -91,6 +93,10 @@ export class CreateEventDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strTVStation: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idWinner: string;
 
   @ApiPropertyOptional()
   @IsString()

@@ -50,6 +50,7 @@ export interface IDriver extends Document, BaseInterface {
   readonly strSide: string;
   readonly strPosition: string;
   readonly strCollege: string;
+  readonly numSeason: number;
   readonly strFacebook: string;
   readonly strWebsite: string;
   readonly strTwitter: string;

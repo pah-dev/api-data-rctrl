@@ -1,27 +1,10 @@
-import { IsString, IsBoolean, IsNumber } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { ITeam } from '../../team/interfaces';
+import { IsNumber, IsString } from 'class-validator';
 
-export class CreateDriverDto {
+export class CreateCircuitDto {
   @ApiProperty()
   @IsString()
-  readonly idPlayer: string;
-
-  @ApiProperty()
-  @IsString()
-  readonly idCategory: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idTeam: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idTeam2: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idTeamNational: string;
+  readonly idCircuit: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -45,31 +28,19 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idSoccerXML: string;
+  readonly strCircuit: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idAPIfootball: string;
+  readonly strCircuitShort: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly idPlayerManager: string;
+  readonly strAlternate: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strNationality: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strPlayer: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTeam: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTeam2: string;
+  readonly intFormedYear: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -77,43 +48,75 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
+  readonly strLeague: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strType: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLength: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDirection: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCorners: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strRSS: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadium: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadiumThumb: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadiumDescription: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadiumLocation: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly intStadiumCapacity: string;
+
+  @ApiPropertyOptional()
+  @IsString()
   readonly intSoccerXMLTeamID: string;
 
   @ApiPropertyOptional()
-  @IsString()
-  readonly dateBorn: string;
+  @IsNumber()
+  readonly numSeason: number;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strNumber: string;
+  readonly strWebsite: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly dateSigned: string;
+  readonly strFacebook: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strSigning: string;
+  readonly strTwitter: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strWage: string;
+  readonly strInstagram: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strOutfitter: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strKit: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strAgent: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strBirthLocation: string;
+  readonly strYoutube: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -177,71 +180,23 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strGender: string;
+  readonly strAddress: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strSide: string;
+  readonly strCountry: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strPosition: string;
+  readonly strBadge: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCollege: string;
-
-  @ApiPropertyOptional()
-  @IsNumber()
-  readonly numSeason: number;
+  readonly strJersey: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFacebook: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strWebsite: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTwitter: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strInstagram: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strYoutube: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strHeight: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strWeight: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly intLoved: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strThumb: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strCutout: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strRender: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strBanner: string;
+  readonly strLogo: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -261,13 +216,13 @@ export class CreateDriverDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strCreativeCommons: string;
+  readonly strBanner: string;
 
   @ApiPropertyOptional()
   @IsString()
   readonly strLocked: string;
 
   @ApiPropertyOptional()
-  @IsBoolean()
+  @IsString()
   readonly isOnlyImg: boolean;
 }

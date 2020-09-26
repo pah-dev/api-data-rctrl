@@ -8,6 +8,8 @@ import { DriverModule } from './modules/driver/driver.module';
 import { TeamModule } from './modules/team/team.module';
 import { ChampModule } from './modules/champ/champ.module';
 import { CatModule } from './modules/cat/cat.module';
+import { ResponseApiService } from './shared/response-api.service';
+import { CircuitModule } from './modules/circuit/circuit.module';
 
 @Module({
   imports: [
@@ -15,11 +17,12 @@ import { CatModule } from './modules/cat/cat.module';
     OrgModule,
     CatModule,
     DriverModule,
-    EventModule,
     TeamModule,
+    CircuitModule,
+    EventModule,
     ChampModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ResponseApiService],
 })
 export class AppModule {}
