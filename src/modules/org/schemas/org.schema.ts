@@ -8,7 +8,7 @@ export const OrgSchema = new Schema(
     strOrgAlternate: { type: String, default: '' },
     strDescription: { type: String, default: '' },
     categories: [{ type: Schema.Types.ObjectId, ref: 'Cats' }],
-    strSection: { type: String, default: '' },
+    idSection: { type: Schema.Types.ObjectId, ref: 'Sections' },
     idEspn: { type: String, default: '' },
     idTsdb: { type: String, default: '' },
     idMss: { type: String, default: '' },

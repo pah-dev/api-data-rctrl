@@ -10,6 +10,7 @@ import { ChampModule } from './modules/champ/champ.module';
 import { CatModule } from './modules/cat/cat.module';
 import { ResponseApiService } from './shared/response-api.service';
 import { CircuitModule } from './modules/circuit/circuit.module';
+import { SectionModule } from './modules/section/section.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CircuitModule } from './modules/circuit/circuit.module';
     CircuitModule,
     EventModule,
     ChampModule,
+    SectionModule,
   ],
   controllers: [AppController],
   providers: [AppService, ResponseApiService],

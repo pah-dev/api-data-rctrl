@@ -5,7 +5,7 @@ export interface IOrgService {
   findAll(): Promise<IOrg[]>;
   findById(orgId: string): Promise<IOrg | null>;
   findOne(options: object): Promise<IOrg | null>;
-  create(org: CreateOrgDto[]): Promise<IOrg>;
+  create(createOrgDto: CreateOrgDto[]): Promise<IOrg>;
   update(orgId: string, newOrg: UpdateOrgDto): Promise<IOrg | null>;
   delete(orgId: string): Promise<string>;
 }

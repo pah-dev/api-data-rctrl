@@ -1,27 +1,14 @@
 import { Document } from 'mongoose';
+import { IOrg } from 'src/modules/org/interfaces';
 import { BaseInterface } from '../../../shared/base.interface';
 
-export interface IOrg extends Document, BaseInterface {
-  readonly idOrg: string;
-  readonly strOrg: string;
-  readonly strOrgShort: string;
-  readonly strOrgAlternate: string;
+export interface ISection extends Document, BaseInterface {
+  readonly idSec: string;
+  readonly strSec: string;
+  readonly strSecShort: string;
+  readonly strSecAlternate: string;
+  orgs: IOrg[];
   readonly strDescription: string;
-  categories: string[];
-  idSection: string;
-  readonly idEspn: string;
-  readonly idTsdb: string;
-  readonly idMss: string;
-  readonly idMyL: string;
-  readonly idRCtrl: string;
-  readonly intFormedYear: string;
-  readonly strCurrentSeason: string;
-  readonly strCountry: string;
-  readonly strWebsite: string;
-  readonly strFacebook: string;
-  readonly strTwitter: string;
-  readonly strYoutube: string;
-  readonly strInstagram: string;
   readonly strDescriptionEN: string;
   readonly strDescriptionDE: string;
   readonly strDescriptionFR: string;
@@ -37,15 +24,11 @@ export interface IOrg extends Document, BaseInterface {
   readonly strDescriptionNO: string;
   readonly strDescriptionPL: string;
   readonly strDescriptionIL: string;
-  readonly strFanart1: string;
-  readonly strFanart2: string;
-  readonly strFanart3: string;
-  readonly strFanart4: string;
+  readonly strCountry: string;
+  readonly strThumb: string;
   readonly strBanner: string;
   readonly strBadge: string;
   readonly strLogo: string;
-  readonly strPoster: string;
-  readonly strTrophy: string;
   readonly rank: number;
   readonly isWorking: boolean;
 }

@@ -1,86 +1,31 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
-import { ICat } from '../../cat/interfaces';
+import { IOrg } from '../../org/interfaces';
 
-export class CreateOrgDto {
-  @ApiProperty({ description: 'Organization ID' })
+export class CreateSectionDto {
+  @ApiProperty({ description: 'Section ID' })
   @IsString()
-  readonly idOrg: string;
+  readonly idSec: string;
 
-  @ApiProperty({ description: 'Organization name' })
+  @ApiProperty({ description: 'Section name' })
   @IsString()
-  readonly strOrg: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strOrgShort: string;
+  readonly strSec: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strOrgAlternate: string;
+  readonly strSecShort: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strSecAlternate: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly orgs: IOrg[];
 
   @ApiPropertyOptional()
   @IsString()
   readonly strDescription: string;
-
-  @ApiProperty()
-  readonly categories: ICat[];
-
-  @ApiProperty()
-  @IsString()
-  readonly idSection: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idEspn: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idTsdb: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idMss: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idMyL: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly idRCtrl: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly intFormedYear: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strCurrentSeason: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strCountry: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strWebsite: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFacebook: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTwitter: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strYoutube: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strInstagram: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -144,19 +89,11 @@ export class CreateOrgDto {
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFanart1: string;
+  readonly strCountry: string;
 
   @ApiPropertyOptional()
   @IsString()
-  readonly strFanart2: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFanart3: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strFanart4: string;
+  readonly strThumb: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -169,14 +106,6 @@ export class CreateOrgDto {
   @ApiPropertyOptional()
   @IsString()
   readonly strLogo: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strPoster: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  readonly strTrophy: string;
 
   @ApiPropertyOptional()
   @IsNumber()

@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
     .setTitle('RaceCtrl Data')
-    .setDescription('The RaceCtrl Data API description')
+    .setDescription('RaceCtrl Data API description')
     .setVersion('1.0')
     .addTag('racectrl')
     .build();

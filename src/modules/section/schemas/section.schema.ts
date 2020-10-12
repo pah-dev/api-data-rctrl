@@ -1,0 +1,38 @@
+import { Schema } from 'mongoose';
+
+export const SectionSchema = new Schema(
+  {
+    idSec: { type: String, required: true, unique: true },
+    strSec: { type: String, required: true },
+    strSecShort: { type: String, default: '' },
+    strSecAlternate: { type: String, default: '' },
+    orgs: [{ type: Schema.Types.ObjectId, ref: 'Orgs' }],
+    strDescription: { type: String, default: '' },
+    strDescriptionEN: { type: String, default: '' },
+    strDescriptionDE: { type: String, default: '' },
+    strDescriptionFR: { type: String, default: '' },
+    strDescriptionIT: { type: String, default: '' },
+    strDescriptionCN: { type: String, default: '' },
+    strDescriptionJP: { type: String, default: '' },
+    strDescriptionRU: { type: String, default: '' },
+    strDescriptionES: { type: String, default: '' },
+    strDescriptionPT: { type: String, default: '' },
+    strDescriptionSE: { type: String, default: '' },
+    strDescriptionNL: { type: String, default: '' },
+    strDescriptionHU: { type: String, default: '' },
+    strDescriptionNO: { type: String, default: '' },
+    strDescriptionPL: { type: String, default: '' },
+    strDescriptionIL: { type: String, default: '' },
+    strCountry: { type: String, default: '' },
+    strThumb: { type: String, default: '' },
+    strBanner: { type: String, default: '' },
+    strBadge: { type: String, default: '' },
+    strLogo: { type: String, default: '' },
+    rank: { type: Number, default: 999 },
+    isWorking: { type: Boolean, default: true },
+  },
+  {
+    versionKey: false,
+    timestamps: true,
+  },
+);

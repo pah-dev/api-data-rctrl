@@ -40,16 +40,14 @@ export class DriverController {
     @Param('year') year: string,
   ) {
     const drivers = await this.driverService.getDriversCat(catId, year);
-    return res.status(HttpStatus.OK).json({
-      drivers,
-    });
+    return res.status(HttpStatus.OK).json(drivers);
   }
 
   @Get('/find')
-  public async findTodo(@Res() res, @Body() body) {
+  public async findDriver(@Res() res, @Body() body) {
     const queryCondition = body;
-    const todos = await this.driverService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(todos);
+    const driver = await this.driverService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(driver);
   }
 
   @Post('/create')

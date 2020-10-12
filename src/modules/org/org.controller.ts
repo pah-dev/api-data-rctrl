@@ -35,10 +35,16 @@ export class OrgController {
   }
 
   @Get('/find')
-  public async findTodo(@Res() res, @Body() body) {
+  public async findOrg(@Res() res, @Body() body) {
     const queryCondition = body;
-    const todos = await this.orgService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(todos);
+    const org = await this.orgService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(org);
+  }
+
+  @Get('/sec/nav')
+  async getNav(@Res() res) {
+    const secs = await this.orgService.getNav();
+    return res.status(HttpStatus.OK).json(secs);
   }
 
   @Post('/create')

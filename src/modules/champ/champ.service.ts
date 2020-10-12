@@ -41,7 +41,7 @@ export class ChampService implements IChampService {
     type: string,
   ): Promise<IChamp> {
     return await this.champModel
-      .findOne({ idRCtrl: catId, numSeason: parseInt(year), typeChamp: type })
+      .findOne({ idCat: catId, numSeason: parseInt(year), typeChamp: type })
       .populate('data.idDriver')
       .exec();
   }
@@ -58,6 +58,7 @@ export class ChampService implements IChampService {
           const driv = await this.driverService.findOne({
             idRCtrl: champ.data[i].idPlayer,
           });
+          Logger.log(champ.data[i].idPlayer);
           newChamp.data[i].idDriver = driv._id;
         }
         try {

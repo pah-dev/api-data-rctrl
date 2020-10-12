@@ -3,15 +3,21 @@ import { Injectable, Logger } from '@nestjs/common';
 import { CreateOrgDto, UpdateOrgDto } from './dtos';
 import { InjectModel } from '@nestjs/mongoose';
 import { IOrg, IOrgService } from './interfaces';
+import { SectionService } from '../section/section.service';
+import { ISection } from '../section/interfaces';
 
 @Injectable()
 export class OrgService implements IOrgService {
-  constructor(@InjectModel('Orgs') private readonly orgModel: Model<IOrg>) {}
+  constructor(
+    @InjectModel('Orgs') private readonly orgModel: Model<IOrg>,
+    private sectionService: SectionService,
+  ) {}
 
   async findAll(): Promise<IOrg[]> {
     return await this.orgModel
       .find()
       .populate('categories')
+      .sort({ rank: 1 })
       .exec();
   }
 
@@ -29,13 +35,35 @@ export class OrgService implements IOrgService {
       .exec();
   }
 
+  async getNav(): Promise<ISection[]> {
+    const secs = await this.sectionService.findAll();
+    for (const sec of secs) {
+      const orgs = await this.orgModel
+        .find({ idSection: sec._id })
+        .populate('categories')
+        .sort({ rank: 1 })
+        .exec();
+      sec.orgs = orgs;
+    }
+    return secs;
+  }
+
   async create(createOrgDto: CreateOrgDto[]): Promise<any> {
     const ret = [];
     try {
       for (const org of createOrgDto) {
+        const sec = await this.sectionService.findOne({
+          idSec: org.idSection,
+        });
         const newOrg = new this.orgModel(org);
         try {
-          ret.push(await newOrg.save());
+          newOrg.idSection = sec._id;
+          const savedOrg = await newOrg.save();
+          if (savedOrg._id) {
+            sec.orgs.push(savedOrg._id);
+            await this.sectionService.update(sec._id, sec);
+          }
+          ret.push(savedOrg);
         } catch (error) {
           Logger.error(
             'Error saving Organization: ' + org.idOrg + ' - ' + error,
@@ -44,7 +72,7 @@ export class OrgService implements IOrgService {
         }
       }
     } catch (error) {
-      Logger.error(error);
+      Logger.error(error, 'CreateOrganization');
     }
     return ret;
   }

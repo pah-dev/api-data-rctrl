@@ -43,10 +43,10 @@ export class EventController {
   }
 
   @Get('/find')
-  public async findTodo(@Res() res, @Body() body) {
+  public async findEvent(@Res() res, @Body() body) {
     const queryCondition = body;
-    const todos = await this.eventService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(todos);
+    const event = await this.eventService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(event);
   }
 
   @Post('/create')
