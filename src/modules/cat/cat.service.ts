@@ -51,7 +51,7 @@ export class CatService implements ICatService {
           Logger.error(
             'Error saving Category: ' + cat.idLeague + ' - ' + error,
           );
-          ret.push('Error saving Category: ' + cat.idLeague);
+          ret.push('Error saving Category: [' + cat.idLeague + '] ' + error);
         }
       }
     } catch (err) {

@@ -54,14 +54,13 @@ export class ChampService implements IChampService {
       });
       for (const champ of createChampDto) {
         const newChamp = new this.champModel(champ);
-        for (let i = 0; i < champ.data.length; i++) {
-          const driv = await this.driverService.findOne({
-            idRCtrl: champ.data[i].idPlayer,
-          });
-          Logger.log(champ.data[i].idPlayer);
-          newChamp.data[i].idDriver = driv._id;
-        }
         try {
+          for (let i = 0; i < champ.data.length; i++) {
+            const driv = await this.driverService.findOne({
+              idRCtrl: champ.data[i].idPlayer,
+            });
+            newChamp.data[i].idDriver = driv._id;
+          }
           newChamp.idOrg = cat.idOrg;
           newChamp.idCat = cat._id;
           ret.push(await newChamp.save());
@@ -69,7 +68,9 @@ export class ChampService implements IChampService {
           Logger.error(
             'Error saving Championship: ' + champ.idCategory + ' - ' + error,
           );
-          ret.push('Error saving Championship: ' + champ.idCategory);
+          ret.push(
+            'Error saving Championship: [' + champ.idCategory + '] ' + error,
+          );
         }
       }
     } catch (error) {

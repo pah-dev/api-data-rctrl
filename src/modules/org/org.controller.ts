@@ -30,14 +30,12 @@ export class OrgController {
   @Get('/:orgId')
   async getOrg(@Res() res, @Param('orgId') orgId: string) {
     const org = await this.orgService.findById(orgId);
-    //if (!org) throw new NotFoundException('Org does not exists');
     return res.status(HttpStatus.OK).json(org);
   }
 
-  @Get('/find')
-  public async findOrg(@Res() res, @Body() body) {
-    const queryCondition = body;
-    const org = await this.orgService.findOne(queryCondition);
+  @Get('/find/:orgId')
+  public async findOrg(@Res() res, @Param('orgId') orgId: string) {
+    const org = await this.orgService.findOne({ idOrg: orgId });
     return res.status(HttpStatus.OK).json(org);
   }
 

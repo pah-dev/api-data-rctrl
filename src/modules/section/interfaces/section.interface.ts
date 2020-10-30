@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { IOrg } from 'src/modules/org/interfaces';
+import { IOrg } from '../../org/interfaces';
 import { BaseInterface } from '../../../shared/base.interface';
 
 export interface ISection extends Document, BaseInterface {

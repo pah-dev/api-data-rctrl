@@ -45,7 +45,7 @@ export class TeamService implements ITeamService {
           ret.push(await newTeam.save());
         } catch (error) {
           Logger.error('Error saving Team: ' + team.idTeam + ' - ' + error);
-          ret.push('Error saving Team: ' + team.idTeam);
+          ret.push('Error saving Team: [' + team.idTeam + '] ' + error);
         }
       }
     } catch (error) {

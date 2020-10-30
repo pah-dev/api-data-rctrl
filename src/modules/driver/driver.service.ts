@@ -58,7 +58,7 @@ export class DriverService implements IDriverService {
           Logger.error(
             'Error saving Driver: ' + driver.idPlayer + ' - ' + error,
           );
-          ret.push('Error saving Driver: ' + driver.idPlayer);
+          ret.push('Error saving Driver: [' + driver.idPlayer + '] ' + error);
         }
       }
     } catch (error) {

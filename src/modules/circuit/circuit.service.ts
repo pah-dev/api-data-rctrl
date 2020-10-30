@@ -33,7 +33,9 @@ export class CircuitService {
           Logger.error(
             'Error saving Circuit: ' + circuit.idCircuit + ' - ' + error,
           );
-          ret.push('Error saving Circuit: ' + circuit.idCircuit);
+          ret.push(
+            'Error saving Circuit: [' + circuit.idCircuit + '] ' + error,
+          );
         }
       }
     } catch (error) {

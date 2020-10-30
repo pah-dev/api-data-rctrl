@@ -60,7 +60,7 @@ export class EventService implements IEventService {
           ret.push(await newEvent.save());
         } catch (error) {
           Logger.error('Error saving Event: ' + event.idEvent + ' - ' + error);
-          ret.push('Error saving Event: ' + event.idEvent);
+          ret.push('Error saving Event: [' + event.idEvent + '] ' + error);
         }
       }
     } catch (error) {
