@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ErrorHandlerModule } from '../../shared/error-handler/error-handler.module';
 import { CatModule } from '../cat/cat.module';
 import { TeamModule } from '../team/team.module';
 import { DriverController } from './driver.controller';
@@ -11,6 +12,7 @@ import { DriverSchema } from './schemas/driver.schema';
     MongooseModule.forFeature([{ name: 'Drivers', schema: DriverSchema }]),
     CatModule,
     TeamModule,
+    ErrorHandlerModule,
   ],
   controllers: [DriverController],
   providers: [DriverService],

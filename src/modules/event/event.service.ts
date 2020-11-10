@@ -6,6 +6,7 @@ import { CreateEventDto, UpdateEventDto } from './dtos';
 import { CatService } from '../cat/cat.service';
 import { DriverService } from '../driver/driver.service';
 import { CircuitService } from '../circuit/circuit.service';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 
 @Injectable()
 export class EventService implements IEventService {
@@ -14,6 +15,7 @@ export class EventService implements IEventService {
     private catService: CatService,
     private driverService: DriverService,
     private circuitService: CircuitService,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<IEvent[]> {
@@ -38,6 +40,8 @@ export class EventService implements IEventService {
 
   async create(createEventDto: CreateEventDto[]): Promise<any> {
     const ret = [];
+    const data = [];
+    const err = [];
     try {
       const cat = await this.catService.findOne({
         idLeague: createEventDto[0].idCategory,
@@ -57,15 +61,16 @@ export class EventService implements IEventService {
           else newEvent.idCircuit = undefined;
           newEvent.idOrg = cat.idOrg;
           newEvent.idCat = cat._id;
-          ret.push(await newEvent.save());
-        } catch (error) {
-          Logger.error('Error saving Event: ' + event.idEvent + ' - ' + error);
-          ret.push('Error saving Event: [' + event.idEvent + '] ' + error);
+          data.push(await newEvent.save());
+        } catch (ex) {
+          err.push(this.eH.logger(ex, 'Event', 'Create', event, event.idEvent));
         }
       }
-    } catch (error) {
-      Logger.error(error);
+    } catch (ex) {
+      err.push(this.eH.logger(ex, 'Event', 'Create'));
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 

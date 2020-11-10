@@ -5,12 +5,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IOrg, IOrgService } from './interfaces';
 import { SectionService } from '../section/section.service';
 import { ISection } from '../section/interfaces';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 
 @Injectable()
 export class OrgService implements IOrgService {
   constructor(
     @InjectModel('Orgs') private readonly orgModel: Model<IOrg>,
     private sectionService: SectionService,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<IOrg[]> {
@@ -36,7 +38,7 @@ export class OrgService implements IOrgService {
   }
 
   async getNav(): Promise<ISection[]> {
-    const secs = await this.sectionService.findAll();
+    const secs = await this.sectionService.findAllPop();
     for (const sec of secs) {
       const orgs = await this.orgModel
         .find({ idSection: sec._id })
@@ -50,30 +52,27 @@ export class OrgService implements IOrgService {
 
   async create(createOrgDto: CreateOrgDto[]): Promise<any> {
     const ret = [];
-    try {
-      for (const org of createOrgDto) {
+    const data = [];
+    const err = [];
+    for (const org of createOrgDto) {
+      try {
         const sec = await this.sectionService.findOne({
           idSec: org.idSection,
         });
         const newOrg = new this.orgModel(org);
-        try {
-          newOrg.idSection = sec._id;
-          const savedOrg = await newOrg.save();
-          if (savedOrg._id) {
-            sec.orgs.push(savedOrg._id);
-            await this.sectionService.update(sec._id, sec);
-          }
-          ret.push(savedOrg);
-        } catch (error) {
-          Logger.error(
-            'Error saving Organization: ' + org.idOrg + ' - ' + error,
-          );
-          ret.push('Error saving Organization: [' + org.idOrg + '] ' + error);
+        newOrg.idSection = sec._id;
+        const savedOrg = await newOrg.save();
+        if (savedOrg._id) {
+          sec.orgs.push(savedOrg._id);
+          await this.sectionService.update(sec._id, sec);
         }
+        data.push(savedOrg);
+      } catch (ex) {
+        err.push(this.eH.logger(ex, 'Organization', 'Create', org, org.idOrg));
       }
-    } catch (error) {
-      Logger.error(error, 'CreateOrganization');
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 

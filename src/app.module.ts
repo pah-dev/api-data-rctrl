@@ -8,9 +8,10 @@ import { DriverModule } from './modules/driver/driver.module';
 import { TeamModule } from './modules/team/team.module';
 import { ChampModule } from './modules/champ/champ.module';
 import { CatModule } from './modules/cat/cat.module';
-import { ResponseApiService } from './shared/response-api.service';
+import { ResponseApiService } from './shared/response-api/response-api.service';
 import { CircuitModule } from './modules/circuit/circuit.module';
 import { SectionModule } from './modules/section/section.module';
+import { ErrorHandlerModule } from './shared/error-handler/error-handler.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SectionModule } from './modules/section/section.module';
     EventModule,
     ChampModule,
     SectionModule,
+    ErrorHandlerModule,
   ],
   controllers: [AppController],
   providers: [AppService, ResponseApiService],

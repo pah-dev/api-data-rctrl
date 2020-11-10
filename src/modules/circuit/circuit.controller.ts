@@ -9,7 +9,7 @@ import {
   Res,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBasicAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CircuitService } from './circuit.service';
 import { CreateCircuitDto, UpdateCircuitDto } from './dtos';
 

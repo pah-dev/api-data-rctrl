@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Logger } from '@nestjs/common/services/logger.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 import { CreateSectionDto, UpdateSectionDto } from './dtos';
 import { ISection, ISectionService } from './interfaces';
 
@@ -9,9 +10,17 @@ import { ISection, ISectionService } from './interfaces';
 export class SectionService implements ISectionService {
   constructor(
     @InjectModel('Sections') private readonly secModel: Model<ISection>,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<ISection[]> {
+    return await this.secModel
+      .find()
+      .sort({ rank: 1 })
+      .exec();
+  }
+
+  async findAllPop(): Promise<ISection[]> {
     return await this.secModel
       .find()
       .populate('orgs')
@@ -35,19 +44,18 @@ export class SectionService implements ISectionService {
 
   async create(createSectionDto: CreateSectionDto[]): Promise<any> {
     const ret = [];
-    try {
-      for (const sec of createSectionDto) {
+    const data = [];
+    const err = [];
+    for (const sec of createSectionDto) {
+      try {
         const newSec = new this.secModel(sec);
-        try {
-          ret.push(await newSec.save());
-        } catch (error) {
-          Logger.error('Error saving Section: ' + sec.idSec + ' - ' + error);
-          ret.push('Error saving Section: ' + sec.idSec);
-        }
+        data.push(await newSec.save());
+      } catch (ex) {
+        err.push(this.eH.logger(ex, 'Section', 'Create', sec, sec.idSec));
       }
-    } catch (error) {
-      Logger.error(error);
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 

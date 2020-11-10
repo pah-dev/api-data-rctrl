@@ -4,12 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ITeam, ITeamService } from './interfaces';
 import { CreateTeamDto, UpdateTeamDto } from './dtos';
 import { CatService } from '../cat/cat.service';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 
 @Injectable()
 export class TeamService implements ITeamService {
   constructor(
     @InjectModel('Teams') private readonly teamModel: Model<ITeam>,
     private catService: CatService,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<ITeam[]> {
@@ -33,6 +35,8 @@ export class TeamService implements ITeamService {
 
   async create(createTeamDto: CreateTeamDto[]): Promise<any> {
     const ret = [];
+    const data = [];
+    const err = [];
     try {
       const cat = await this.catService.findOne({
         idLeague: createTeamDto[0].idCategory,
@@ -42,15 +46,16 @@ export class TeamService implements ITeamService {
           const newTeam = new this.teamModel(team);
           newTeam.idCat = cat._id;
           newTeam.idOrg = cat.idOrg;
-          ret.push(await newTeam.save());
-        } catch (error) {
-          Logger.error('Error saving Team: ' + team.idTeam + ' - ' + error);
-          ret.push('Error saving Team: [' + team.idTeam + '] ' + error);
+          data.push(await newTeam.save());
+        } catch (ex) {
+          err.push(this.eH.logger(ex, 'Team', 'Create', team, team.idTeam));
         }
       }
-    } catch (error) {
-      Logger.error(error);
+    } catch (ex) {
+      err.push(this.eH.logger(ex, 'Team', 'Create'));
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 

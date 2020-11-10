@@ -4,12 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ICat, ICatService } from './interfaces';
 import { CreateCatDto, UpdateCatDto } from './dtos';
 import { OrgService } from '../org/org.service';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 
 @Injectable()
 export class CatService implements ICatService {
   constructor(
     @InjectModel('Cats') private readonly catModel: Model<ICat>,
     private orgService: OrgService,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<ICat[]> {
@@ -26,37 +28,36 @@ export class CatService implements ICatService {
 
   async info(catId: string): Promise<ICat> {
     return await this.catModel
-      .findOne({ idRCtrl: catId })
+      .findOne({ idLeague: catId })
       .populate('idOrg')
       .exec();
   }
 
   async create(createCatDto: CreateCatDto[]): Promise<any> {
     const ret = [];
-    try {
-      for (const cat of createCatDto) {
+    const data = [];
+    const err = [];
+    for (const cat of createCatDto) {
+      try {
         const org = await this.orgService.findOne({
           idOrg: cat.idOrganization,
         });
         const newCat = new this.catModel(cat);
-        try {
-          newCat.idOrg = org._id;
-          const savedCat = await newCat.save();
-          if (savedCat._id) {
-            org.categories.push(savedCat._id);
-            await this.orgService.update(org._id, org);
-          }
-          ret.push(savedCat);
-        } catch (error) {
-          Logger.error(
-            'Error saving Category: ' + cat.idLeague + ' - ' + error,
-          );
-          ret.push('Error saving Category: [' + cat.idLeague + '] ' + error);
+        newCat.idOrg = org._id;
+        const savedCat = await newCat.save();
+        if (savedCat._id) {
+          org.categories.push(savedCat._id);
+          await this.orgService.update(org._id, org);
         }
+        data.push(savedCat);
+      } catch (ex) {
+        err.push(
+          this.eH.logger(ex, 'Organization', 'Create', cat, cat.idLeague),
+        );
       }
-    } catch (err) {
-      Logger.error(err, 'CreateCategory');
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 

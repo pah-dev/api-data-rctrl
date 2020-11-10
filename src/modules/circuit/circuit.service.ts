@@ -3,11 +3,13 @@ import { CreateCircuitDto, UpdateCircuitDto } from './dtos';
 import { ICircuit } from './interfaces';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 
 @Injectable()
 export class CircuitService {
   constructor(
     @InjectModel('Circuits') private readonly circuitModel: Model<ICircuit>,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<ICircuit[]> {
@@ -24,23 +26,20 @@ export class CircuitService {
 
   async create(createCircuitDto: CreateCircuitDto[]): Promise<any> {
     const ret = [];
-    try {
-      for (const circuit of createCircuitDto) {
-        try {
-          const newCircuit = new this.circuitModel(circuit);
-          ret.push(await newCircuit.save());
-        } catch (error) {
-          Logger.error(
-            'Error saving Circuit: ' + circuit.idCircuit + ' - ' + error,
-          );
-          ret.push(
-            'Error saving Circuit: [' + circuit.idCircuit + '] ' + error,
-          );
-        }
+    const data = [];
+    const err = [];
+    for (const circuit of createCircuitDto) {
+      try {
+        const newCircuit = new this.circuitModel(circuit);
+        data.push(await newCircuit.save());
+      } catch (ex) {
+        err.push(
+          this.eH.logger(ex, 'Circuit', 'Create', circuit, circuit.idCircuit),
+        );
       }
-    } catch (error) {
-      Logger.error(error);
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 

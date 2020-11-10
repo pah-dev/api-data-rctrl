@@ -5,6 +5,7 @@ import { IChamp, IChampService } from './interfaces';
 import { CreateChampDto, UpdateChampDto } from './dtos';
 import { CatService } from '../cat/cat.service';
 import { DriverService } from '../driver/driver.service';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 
 @Injectable()
 export class ChampService implements IChampService {
@@ -12,6 +13,7 @@ export class ChampService implements IChampService {
     @InjectModel('Champs') private readonly champModel: Model<IChamp>,
     private catService: CatService,
     private driverService: DriverService,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<IChamp[]> {
@@ -48,6 +50,8 @@ export class ChampService implements IChampService {
 
   async create(createChampDto: CreateChampDto[]): Promise<any> {
     const ret = [];
+    const data = [];
+    const err = [];
     try {
       const cat = await this.catService.findOne({
         idLeague: createChampDto[0].idCategory,
@@ -63,19 +67,24 @@ export class ChampService implements IChampService {
           }
           newChamp.idOrg = cat.idOrg;
           newChamp.idCat = cat._id;
-          ret.push(await newChamp.save());
-        } catch (error) {
-          Logger.error(
-            'Error saving Championship: ' + champ.idCategory + ' - ' + error,
-          );
-          ret.push(
-            'Error saving Championship: [' + champ.idCategory + '] ' + error,
+          data.push(await newChamp.save());
+        } catch (ex) {
+          err.push(
+            this.eH.logger(
+              ex,
+              'Championship',
+              'Create',
+              champ,
+              champ.idCategory,
+            ),
           );
         }
       }
-    } catch (error) {
-      Logger.error('Error:' + ' - ' + error);
+    } catch (ex) {
+      this.eH.logger(ex, 'Championship', 'Create');
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 

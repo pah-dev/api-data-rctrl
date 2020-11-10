@@ -5,6 +5,7 @@ import { IDriver, IDriverService } from './interfaces';
 import { CreateDriverDto, UpdateDriverDto } from './dtos';
 import { CatService } from '../cat/cat.service';
 import { TeamService } from '../team/team.service';
+import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
 
 @Injectable()
 export class DriverService implements IDriverService {
@@ -12,6 +13,7 @@ export class DriverService implements IDriverService {
     @InjectModel('Drivers') private readonly driverModel: Model<IDriver>,
     private catService: CatService,
     private teamService: TeamService,
+    private eH: ErrorHandlerService,
   ) {}
 
   async findAll(): Promise<IDriver[]> {
@@ -38,6 +40,8 @@ export class DriverService implements IDriverService {
 
   async create(createDriverDto: CreateDriverDto[]): Promise<any> {
     const ret = [];
+    const data = [];
+    const err = [];
     try {
       const cat = await this.catService.findOne({
         idLeague: createDriverDto[0].idCategory,
@@ -53,17 +57,18 @@ export class DriverService implements IDriverService {
           }
           newDriver.idCat = cat._id;
           newDriver.idOrg = cat.idOrg;
-          ret.push(await newDriver.save());
-        } catch (error) {
-          Logger.error(
-            'Error saving Driver: ' + driver.idPlayer + ' - ' + error,
+          data.push(await newDriver.save());
+        } catch (ex) {
+          err.push(
+            this.eH.logger(ex, 'Driver', 'Create', driver, driver.idPlayer),
           );
-          ret.push('Error saving Driver: [' + driver.idPlayer + '] ' + error);
         }
       }
-    } catch (error) {
-      Logger.error(error);
+    } catch (ex) {
+      err.push(this.eH.logger(ex, 'Driver', 'Create'));
     }
+    ret.push({ error: err });
+    ret.push({ data: data });
     return ret;
   }
 
