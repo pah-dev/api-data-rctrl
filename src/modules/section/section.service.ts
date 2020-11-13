@@ -43,7 +43,7 @@ export class SectionService implements ISectionService {
   }
 
   async create(createSectionDto: CreateSectionDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     for (const sec of createSectionDto) {
@@ -54,8 +54,8 @@ export class SectionService implements ISectionService {
         err.push(this.eH.logger(ex, 'Section', 'Create', sec, sec.idSec));
       }
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 

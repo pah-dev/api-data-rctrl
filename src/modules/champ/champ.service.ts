@@ -49,7 +49,7 @@ export class ChampService implements IChampService {
   }
 
   async create(createChampDto: CreateChampDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     try {
@@ -63,7 +63,7 @@ export class ChampService implements IChampService {
             const driv = await this.driverService.findOne({
               idRCtrl: champ.data[i].idPlayer,
             });
-            newChamp.data[i].idDriver = driv._id;
+            newChamp.data[i].idDriver = driv?._id;
           }
           newChamp.idOrg = cat.idOrg;
           newChamp.idCat = cat._id;
@@ -83,8 +83,8 @@ export class ChampService implements IChampService {
     } catch (ex) {
       this.eH.logger(ex, 'Championship', 'Create');
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 

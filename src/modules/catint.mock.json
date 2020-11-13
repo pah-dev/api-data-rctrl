@@ -50,6 +50,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -105,6 +107,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2017,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -160,6 +164,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2019,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -216,6 +222,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2014,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -271,6 +279,8 @@
     "chTypes": ["D"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -326,6 +336,8 @@
     "chTypes": ["D"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -381,6 +393,8 @@
     "chTypes": ["D"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -436,6 +450,8 @@
     "chTypes": ["D"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -492,6 +508,8 @@
     "chTypes": ["D", "C"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -547,6 +565,8 @@
     "chTypes": ["D", "C"],
     "evYearIni": 2019,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -602,6 +622,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2020,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": false,
     "isOnlyImg": false
@@ -657,6 +679,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2020,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": false,
     "isOnlyImg": false
@@ -712,6 +736,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2020,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": false,
     "isOnlyImg": false
@@ -767,6 +793,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2020,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": false,
     "isOnlyImg": false
@@ -823,6 +851,8 @@
     "chTypes": ["D", "T", "C"],
     "evYearIni": 2012,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -879,6 +909,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -934,6 +966,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2018,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -989,6 +1023,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2014,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1044,6 +1080,8 @@
     "chTypes": ["D", "T", "C"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1099,6 +1137,8 @@
     "chTypes": ["D", "T", "C"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1154,6 +1194,8 @@
     "chTypes": ["D", "T", "C"],
     "evYearIni": 2012,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1209,6 +1251,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2019,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1264,6 +1308,8 @@
     "chTypes": ["D", "T", "C"],
     "evYearIni": 2010,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1319,6 +1365,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2019,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1374,6 +1422,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2020,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1429,6 +1479,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2020,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false
@@ -1484,6 +1536,8 @@
     "chTypes": ["D", "T"],
     "evYearIni": 2020,
     "evYearFin": 2020,
+    "idChannel": "",
+    "isStreaming": false,
     "isWorking": true,
     "infoInCat": true,
     "isOnlyImg": false

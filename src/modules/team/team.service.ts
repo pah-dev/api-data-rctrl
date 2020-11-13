@@ -34,7 +34,7 @@ export class TeamService implements ITeamService {
   }
 
   async create(createTeamDto: CreateTeamDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     try {
@@ -54,8 +54,8 @@ export class TeamService implements ITeamService {
     } catch (ex) {
       err.push(this.eH.logger(ex, 'Team', 'Create'));
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 

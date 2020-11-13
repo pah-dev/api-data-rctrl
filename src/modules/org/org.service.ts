@@ -37,6 +37,18 @@ export class OrgService implements IOrgService {
       .exec();
   }
 
+  async findBySec(secId: string): Promise<IOrg[]> {
+    const sec = await this.sectionService.findOne({ idSec: secId });
+    let orgs = [];
+    if (sec) {
+      orgs = await this.orgModel
+        .find({ idSection: sec._id })
+        .populate('categories')
+        .exec();
+    }
+    return orgs;
+  }
+
   async getNav(): Promise<ISection[]> {
     const secs = await this.sectionService.findAllPop();
     for (const sec of secs) {
@@ -51,7 +63,7 @@ export class OrgService implements IOrgService {
   }
 
   async create(createOrgDto: CreateOrgDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     for (const org of createOrgDto) {
@@ -71,8 +83,8 @@ export class OrgService implements IOrgService {
         err.push(this.eH.logger(ex, 'Organization', 'Create', org, org.idOrg));
       }
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 

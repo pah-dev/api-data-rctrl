@@ -25,7 +25,7 @@ export class CircuitService {
   }
 
   async create(createCircuitDto: CreateCircuitDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     for (const circuit of createCircuitDto) {
@@ -38,8 +38,8 @@ export class CircuitService {
         );
       }
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 

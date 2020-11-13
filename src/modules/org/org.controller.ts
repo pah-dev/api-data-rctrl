@@ -39,6 +39,12 @@ export class OrgController {
     return res.status(HttpStatus.OK).json(org);
   }
 
+  @Get('/find/sec/:secId')
+  public async findBySec(@Res() res, @Param('secId') secId: string) {
+    const org = await this.orgService.findBySec(secId);
+    return res.status(HttpStatus.OK).json(org);
+  }
+
   @Get('/sec/nav')
   async getNav(@Res() res) {
     const secs = await this.orgService.getNav();

@@ -34,7 +34,7 @@ export class CatService implements ICatService {
   }
 
   async create(createCatDto: CreateCatDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     for (const cat of createCatDto) {
@@ -56,8 +56,8 @@ export class CatService implements ICatService {
         );
       }
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 

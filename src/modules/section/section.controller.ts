@@ -30,10 +30,9 @@ export class SectionController {
     return res.status(HttpStatus.OK).json(sec);
   }
 
-  @Get('/find')
-  public async findOrg(@Res() res, @Body() body) {
-    const queryCondition = body;
-    const sec = await this.sectionService.findOne(queryCondition);
+  @Get('/find/:secId')
+  public async findOrg(@Res() res, @Param('secId') secId: string) {
+    const sec = await this.sectionService.findOne({ idSec: secId });
     return res.status(HttpStatus.OK).json(sec);
   }
 

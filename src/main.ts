@@ -10,6 +10,7 @@ async function bootstrap() {
   Sentry.init({
     dsn:
       'https://bdaed228f398426086598cc7f718690f@o469906.ingest.sentry.io/5510240',
+    integrations: [new Sentry.Integrations.Http({ tracing: true })],
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control
     tracesSampleRate: 1.0,
@@ -32,7 +33,7 @@ async function bootstrap() {
   });
 
   app.useGlobalInterceptors(new SentryInterceptor());
-  app.setGlobalPrefix('/v1/api');
+  app.setGlobalPrefix('/api/v1');
   app.enableCors({
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',

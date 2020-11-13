@@ -39,7 +39,7 @@ export class EventService implements IEventService {
   }
 
   async create(createEventDto: CreateEventDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     try {
@@ -69,8 +69,8 @@ export class EventService implements IEventService {
     } catch (ex) {
       err.push(this.eH.logger(ex, 'Event', 'Create'));
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 

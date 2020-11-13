@@ -39,7 +39,7 @@ export class DriverService implements IDriverService {
   }
 
   async create(createDriverDto: CreateDriverDto[]): Promise<any> {
-    const ret = [];
+    const ret = {};
     const data = [];
     const err = [];
     try {
@@ -67,8 +67,8 @@ export class DriverService implements IDriverService {
     } catch (ex) {
       err.push(this.eH.logger(ex, 'Driver', 'Create'));
     }
-    ret.push({ error: err });
-    ret.push({ data: data });
+    ret['error'] = err;
+    ret['data'] = data;
     return ret;
   }
 
