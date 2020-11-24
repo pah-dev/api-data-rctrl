@@ -58,13 +58,13 @@ export class ChampController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async createChamp(@Res() res, @Body() createChampDto: CreateChampDto[]) {
     const champ = await this.champService.create(createChampDto);
-    return res.status(HttpStatus.OK).json({ champ });
+    return res.status(HttpStatus.OK).json(champ);
   }
 
   @Delete('/delete/:champId')
   async deleteChamp(@Param('champId') champId: string, @Res() res) {
     const champDeleted = await this.champService.delete(champId);
-    return res.status(HttpStatus.OK).json({ champDeleted });
+    return res.status(HttpStatus.OK).json(champDeleted);
   }
 
   @Put('/update/:champId')
@@ -77,6 +77,6 @@ export class ChampController {
       champId,
       updateChampDto,
     );
-    return res.status(HttpStatus.OK).json({ champUpdated });
+    return res.status(HttpStatus.OK).json(champUpdated);
   }
 }

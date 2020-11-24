@@ -1,38 +1,39 @@
-import {
-  IsString,
-  MaxLength,
-  IsNumber,
-  IsUrl,
-  IsEmail,
-  IsBoolean,
-} from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
+import { CreateChampDataDto } from './create-champ-data.dto';
 
 export class UpdateChampDto {
+  @ApiProperty()
   @IsString()
-  @MaxLength(20, { message: 'This alias is not valid' })
-  readonly alias: string;
+  readonly idCategory: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  readonly address?: string;
+  readonly idEspn: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  readonly phone: string;
+  readonly idTsdb: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  readonly country?: string;
+  readonly idMss: string;
 
-  @IsEmail({}, { message: 'Must be an email' })
-  readonly email?: string;
-
+  @ApiPropertyOptional()
   @IsString()
-  readonly bloodType: string;
+  readonly idMyL: string;
 
-  @IsNumber()
-  readonly team?: number;
+  @ApiPropertyOptional()
+  @IsString()
+  readonly idRCtrl: string;
 
-  @IsBoolean()
-  readonly mainChamp: boolean;
+  @ApiProperty()
+  readonly data: CreateChampDataDto[];
 
-  @IsUrl({}, { message: 'Must be an URL' })
-  readonly photoURL?: string;
+  @ApiPropertyOptional()
+  readonly sumPoints: number;
+
+  @ApiProperty()
+  @IsString()
+  readonly typeChamp: string;
 }

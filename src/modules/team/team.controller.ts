@@ -56,13 +56,8 @@ export class TeamController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async createTeam(@Res() res, @Body() createTeamDto: CreateTeamDto[]) {
-    if (createTeamDto.length > 0) {
-      const team = await this.teamService.create(createTeamDto);
-      res.status(HttpStatus.OK).json({ team });
-    } else {
-      res.status(HttpStatus.NO_CONTENT).json({});
-    }
-    return res;
+    const team = await this.teamService.create(createTeamDto);
+    return res.status(HttpStatus.OK).json({ team });
   }
 
   @Delete('/delete/:teamId')

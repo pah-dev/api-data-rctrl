@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { IChamp, IChampService } from './interfaces';
 import { CreateChampDto, UpdateChampDto } from './dtos';
@@ -88,25 +88,56 @@ export class ChampService implements IChampService {
     return ret;
   }
 
-  async update(champId: string, newChamp: UpdateChampDto): Promise<IChamp> {
-    const champ = await this.champModel.findById(champId).exec();
-
-    if (!champ._id) {
-      Logger.log('Champ not found');
+  async update(champId: string, updChamp: UpdateChampDto): Promise<any> {
+    const ret = {};
+    const data = [];
+    const err = [];
+    try {
+      const champ = await this.champModel.findById(champId).exec();
+      if (!champ._id) {
+        throw new NotFoundException();
+      }
+      try {
+        const newChamp = new this.champModel(updChamp);
+        const champObj = newChamp.toObject();
+        delete champObj._id;
+        for (let i = 0; i < updChamp.data.length; i++) {
+          const driv = await this.driverService.findOne({
+            idRCtrl: updChamp.data[i].idPlayer,
+          });
+          champObj.data[i].idDriver = driv?._id;
+        }
+        err.push(
+          await this.champModel
+            .findByIdAndUpdate(champId, champObj, { new: true, upsert: true })
+            .exec(),
+        );
+      } catch (ex) {
+        err.push(
+          this.eH.logger(
+            ex,
+            'Championship',
+            'Update',
+            updChamp,
+            updChamp.idCategory,
+          ),
+        );
+      }
+    } catch (ex) {
+      this.eH.logger(ex, 'Championship', 'Update');
     }
-
-    return await this.champModel
-      .findByIdAndUpdate(champId, newChamp, { new: true })
-      .exec();
+    ret['error'] = err;
+    ret['data'] = data;
+    return ret;
   }
 
   async delete(champId: string): Promise<string> {
     try {
       await this.champModel.findByIdAndRemove(champId).exec();
-      return 'The Champ has been deleted';
+      return 'The Championship has been deleted';
     } catch (err) {
       Logger.log(err);
-      return 'The Champ could not be deleted';
+      return 'The Championship could not be deleted';
     }
   }
 }
