@@ -6,6 +6,7 @@ import { CreateChampDto, UpdateChampDto } from './dtos';
 import { CatService } from '../cat/cat.service';
 import { DriverService } from '../driver/driver.service';
 import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
+import { TeamService } from '../team/team.service';
 
 @Injectable()
 export class ChampService implements IChampService {
@@ -13,6 +14,7 @@ export class ChampService implements IChampService {
     @InjectModel('Champs') private readonly champModel: Model<IChamp>,
     private catService: CatService,
     private driverService: DriverService,
+    private teamService: TeamService,
     private eH: ErrorHandlerService,
   ) {}
 
@@ -20,6 +22,7 @@ export class ChampService implements IChampService {
     return await this.champModel
       .find()
       .populate('data.idDriver')
+      .populate('data.idTeam')
       .exec();
   }
 
@@ -27,6 +30,7 @@ export class ChampService implements IChampService {
     return await this.champModel
       .findById(champId)
       .populate('data.idDriver')
+      .populate('data.idTeam')
       .exec();
   }
 
@@ -34,6 +38,7 @@ export class ChampService implements IChampService {
     return await this.champModel
       .findOne(options)
       .populate('data.idDriver')
+      .populate('data.idTeam')
       .exec();
   }
 
@@ -45,40 +50,46 @@ export class ChampService implements IChampService {
     return await this.champModel
       .findOne({ idCat: catId, numSeason: parseInt(year), typeChamp: type })
       .populate('data.idDriver')
+      .populate('data.idTeam')
       .exec();
   }
 
-  async create(createChampDto: CreateChampDto[]): Promise<any> {
+  async create(createChampDto: CreateChampDto): Promise<any> {
     const ret = {};
     const data = [];
     const err = [];
     try {
       const cat = await this.catService.findOne({
-        idLeague: createChampDto[0].idCategory,
+        idLeague: createChampDto.idCategory,
       });
-      for (const champ of createChampDto) {
-        const newChamp = new this.champModel(champ);
-        try {
-          for (let i = 0; i < champ.data.length; i++) {
+      const newChamp = new this.champModel(createChampDto);
+      try {
+        for (let i = 0; i < createChampDto.data.length; i++) {
+          if (newChamp.typeChamp == 'D') {
             const driv = await this.driverService.findOne({
-              idRCtrl: champ.data[i].idPlayer,
+              idRCtrl: createChampDto.data[i].idPlayer,
             });
             newChamp.data[i].idDriver = driv?._id;
+          } else {
+            const team = await this.teamService.findOne({
+              idRCtrl: createChampDto.data[i].idPlayer,
+            });
+            newChamp.data[i].idTeam = team?._id;
           }
-          newChamp.idOrg = cat.idOrg;
-          newChamp.idCat = cat._id;
-          data.push(await newChamp.save());
-        } catch (ex) {
-          err.push(
-            this.eH.logger(
-              ex,
-              'Championship',
-              'Create',
-              champ,
-              champ.idCategory,
-            ),
-          );
         }
+        newChamp.idOrg = cat.idOrg;
+        newChamp.idCat = cat._id;
+        data.push(await newChamp.save());
+      } catch (ex) {
+        err.push(
+          this.eH.logger(
+            ex,
+            'Championship',
+            'Create',
+            createChampDto,
+            createChampDto.idCategory,
+          ),
+        );
       }
     } catch (ex) {
       this.eH.logger(ex, 'Championship', 'Create');
@@ -102,12 +113,19 @@ export class ChampService implements IChampService {
         const champObj = newChamp.toObject();
         delete champObj._id;
         for (let i = 0; i < updChamp.data.length; i++) {
-          const driv = await this.driverService.findOne({
-            idRCtrl: updChamp.data[i].idPlayer,
-          });
-          champObj.data[i].idDriver = driv?._id;
+          if (champObj.typeChamp == 'D') {
+            const driv = await this.driverService.findOne({
+              idRCtrl: updChamp.data[i].idPlayer,
+            });
+            champObj.data[i].idDriver = driv?._id;
+          } else {
+            const team = await this.teamService.findOne({
+              idRCtrl: updChamp.data[i].idPlayer,
+            });
+            champObj.data[i].idTeam = team?._id;
+          }
         }
-        err.push(
+        data.push(
           await this.champModel
             .findByIdAndUpdate(champId, champObj, { new: true, upsert: true })
             .exec(),

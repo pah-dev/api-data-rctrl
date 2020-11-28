@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { IEvent, IEventService } from './interfaces';
 import { CreateEventDto, UpdateEventDto } from './dtos';
@@ -74,16 +74,46 @@ export class EventService implements IEventService {
     return ret;
   }
 
-  async update(eventId: string, newEvent: UpdateEventDto): Promise<IEvent> {
-    const event = await this.eventModel.findById(eventId).exec();
-
-    if (!event._id) {
-      Logger.log('Event not found');
+  async update(eventId: string, updEvent: UpdateEventDto): Promise<any> {
+    const ret = {};
+    const data = [];
+    const err = [];
+    try {
+      const event = await this.eventModel.findById(eventId).exec();
+      if (!event._id) {
+        throw new NotFoundException();
+      }
+      try {
+        const driv = await this.driverService.findOne({
+          idRCtrl: updEvent.idWinner,
+        });
+        const circuit = await this.circuitService.findOne({
+          idRCtrl: updEvent.idCircuit,
+        });
+        const newEvent = new this.eventModel(updEvent);
+        const eventObj = newEvent.toObject();
+        delete eventObj._id;
+        if (driv) eventObj.idWinner = driv._id;
+        else eventObj.idWinner = undefined;
+        Logger.debug(driv);
+        if (circuit) eventObj.idCircuit = circuit._id;
+        else eventObj.idCircuit = undefined;
+        data.push(
+          await this.eventModel
+            .findByIdAndUpdate(eventId, eventObj, { new: true, upsert: true })
+            .exec(),
+        );
+      } catch (ex) {
+        err.push(
+          this.eH.logger(ex, 'Event', 'Update', updEvent, updEvent.idCategory),
+        );
+      }
+    } catch (ex) {
+      this.eH.logger(ex, 'Event', 'Update');
     }
-
-    return await this.eventModel
-      .findByIdAndUpdate(eventId, newEvent, { new: true })
-      .exec();
+    ret['error'] = err;
+    ret['data'] = data;
+    return ret;
   }
 
   async delete(eventId: string): Promise<string> {

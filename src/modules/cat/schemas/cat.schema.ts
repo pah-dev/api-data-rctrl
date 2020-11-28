@@ -63,6 +63,8 @@ export const CatSchema = new Schema(
     infoInCat: { type: Boolean, default: false },
     isOnlyImg: { type: Boolean, default: false },
     isWorking: { type: Boolean, default: true },
+    isStreaming: { type: Boolean, default: true },
+    idChannel: { type: String, default: '' },
   },
   {
     versionKey: false,

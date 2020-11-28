@@ -57,13 +57,13 @@ export class EventController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async createEvent(@Res() res, @Body() createEventDto: CreateEventDto[]) {
     const event = await this.eventService.create(createEventDto);
-    return res.status(HttpStatus.OK).json({ event });
+    return res.status(HttpStatus.OK).json(event);
   }
 
   @Delete('/delete/:eventId')
   async deleteEvent(@Param('eventId') eventId: string, @Res() res) {
     const eventDeleted = await this.eventService.delete(eventId);
-    return res.status(HttpStatus.OK).json({ eventDeleted });
+    return res.status(HttpStatus.OK).json(eventDeleted);
   }
 
   @Put('/update/:eventId')
@@ -76,6 +76,6 @@ export class EventController {
       eventId,
       updateEventDto,
     );
-    return res.status(HttpStatus.OK).json({ eventUpdated });
+    return res.status(HttpStatus.OK).json(eventUpdated);
   }
 }

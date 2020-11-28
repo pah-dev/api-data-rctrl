@@ -62,4 +62,6 @@ export interface ICat extends Document, BaseInterface {
   readonly infoInCat: boolean;
   readonly isOnlyImg: boolean;
   readonly isWorking: boolean;
+  readonly isStreaming: boolean;
+  readonly idChannel: string;
 }
