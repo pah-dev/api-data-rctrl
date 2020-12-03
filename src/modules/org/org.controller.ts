@@ -22,9 +22,7 @@ export class OrgController {
   @Get()
   async getOrgs(@Res() res) {
     const orgs = await this.orgService.findAll();
-    return res.status(HttpStatus.OK).json({
-      orgs,
-    });
+    return res.status(HttpStatus.OK).json(orgs);
   }
 
   @Get('/:orgId')

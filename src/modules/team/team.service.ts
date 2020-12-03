@@ -26,6 +26,13 @@ export class TeamService implements ITeamService {
     return await this.teamModel.findOne(options).exec();
   }
 
+  async getIds(catId: string, year: string): Promise<ITeam[]> {
+    return await this.teamModel
+      .find({ idCat: catId, numSeason: parseInt(year) })
+      .select('idTeam')
+      .exec();
+  }
+
   async getTeamsCat(catId: string, year: string): Promise<ITeam[]> {
     return await this.teamModel
       .find({ idCat: catId, numSeason: parseInt(year), strGender: 'T' })

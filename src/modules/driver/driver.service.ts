@@ -31,6 +31,13 @@ export class DriverService implements IDriverService {
     return await this.driverModel.findOne(options).exec();
   }
 
+  async getIds(catId: string, year: string): Promise<IDriver[]> {
+    return await this.driverModel
+      .find({ idCat: catId, numSeason: parseInt(year) })
+      .select('idPlayer')
+      .exec();
+  }
+
   async getDriversCat(catId: string, year: string): Promise<IDriver[]> {
     return await this.driverModel
       .find({ idCat: catId, numSeason: parseInt(year) })

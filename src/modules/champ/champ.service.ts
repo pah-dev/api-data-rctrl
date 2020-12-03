@@ -42,6 +42,13 @@ export class ChampService implements IChampService {
       .exec();
   }
 
+  async getIds(catId: string, year: string): Promise<IChamp[]> {
+    return await this.champModel
+      .find({ idCat: catId, numSeason: parseInt(year) })
+      .select('idChamp')
+      .exec();
+  }
+
   async getChampCat(
     catId: string,
     year: string,

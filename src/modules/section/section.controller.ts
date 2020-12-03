@@ -50,7 +50,7 @@ export class SectionController {
   @Delete('/delete/:sectionId')
   async deleteSec(@Param('sectionId') sectionId: string, @Res() res) {
     const secDeleted = await this.sectionService.delete(sectionId);
-    return res.status(HttpStatus.OK).json({ secDeleted });
+    return res.status(HttpStatus.OK).json(secDeleted);
   }
 
   @Put('/update/:sectionId')
@@ -63,6 +63,6 @@ export class SectionController {
       sectionId,
       updateSecDto,
     );
-    return res.status(HttpStatus.OK).json({ secUpdated });
+    return res.status(HttpStatus.OK).json(secUpdated);
   }
 }

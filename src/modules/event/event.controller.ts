@@ -21,15 +21,30 @@ export class EventController {
   @Get()
   async getEvents(@Res() res) {
     const events = await this.eventService.findAll();
-    return res.status(HttpStatus.OK).json({
-      events,
-    });
+    return res.status(HttpStatus.OK).json(events);
+  }
+
+  @Get('/find')
+  public async findEvent(@Res() res, @Body() body) {
+    const queryCondition = body;
+    const event = await this.eventService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(event);
   }
 
   @Get('/:eventId')
   async getEvent(@Res() res, @Param('eventId') eventId: string) {
     const event = await this.eventService.findById(eventId);
     return res.status(HttpStatus.OK).json(event);
+  }
+
+  @Get('/ids/:catId/:year')
+  async getIds(
+    @Res() res,
+    @Param('catId') catId: string,
+    @Param('year') year: string,
+  ) {
+    const events = await this.eventService.getIds(catId, year);
+    return res.status(HttpStatus.OK).json(events);
   }
 
   @Get('/cat/:catId/:year')
@@ -40,13 +55,6 @@ export class EventController {
   ) {
     const events = await this.eventService.getEventsCat(catId, year);
     return res.status(HttpStatus.OK).json(events);
-  }
-
-  @Get('/find')
-  public async findEvent(@Res() res, @Body() body) {
-    const queryCondition = body;
-    const event = await this.eventService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(event);
   }
 
   @Post('/create')

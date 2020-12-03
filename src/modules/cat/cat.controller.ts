@@ -21,15 +21,7 @@ export class CatController {
   @Get()
   async getCats(@Res() res) {
     const cats = await this.catService.findAll();
-    return res.status(HttpStatus.OK).json({
-      cats,
-    });
-  }
-
-  @Get('/:catId')
-  async getCat(@Res() res, @Param('catId') catId: string) {
-    const cat = await this.catService.findById(catId);
-    return res.status(HttpStatus.OK).json(cat);
+    return res.status(HttpStatus.OK).json(cats);
   }
 
   @Get('/find')
@@ -37,6 +29,12 @@ export class CatController {
     const queryCondition = body;
     const cats = await this.catService.findOne(queryCondition);
     return res.status(HttpStatus.OK).json(cats);
+  }
+
+  @Get('/:catId')
+  async getCat(@Res() res, @Param('catId') catId: string) {
+    const cat = await this.catService.findById(catId);
+    return res.status(HttpStatus.OK).json(cat);
   }
 
   @Get('/info/:catId')
@@ -59,7 +57,7 @@ export class CatController {
   @Delete('/delete/:catId')
   async deleteCat(@Param('catId') catId: string, @Res() res) {
     const catDeleted = await this.catService.delete(catId);
-    return res.status(HttpStatus.OK).json({ catDeleted });
+    return res.status(HttpStatus.OK).json(catDeleted);
   }
 
   @Put('/update/:catId')
@@ -69,6 +67,6 @@ export class CatController {
     @Body() updateCatDto: UpdateCatDto,
   ) {
     const catUpdated = await this.catService.update(catId, updateCatDto);
-    return res.status(HttpStatus.OK).json({ catUpdated });
+    return res.status(HttpStatus.OK).json(catUpdated);
   }
 }

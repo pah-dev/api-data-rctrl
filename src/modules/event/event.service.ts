@@ -30,6 +30,13 @@ export class EventService implements IEventService {
     return await this.eventModel.findOne(options).exec();
   }
 
+  async getIds(catId: string, year: string): Promise<IEvent[]> {
+    return await this.eventModel
+      .find({ idCat: catId, numSeason: parseInt(year) })
+      .select('idEvent')
+      .exec();
+  }
+
   async getEventsCat(catId: string, year: string): Promise<IEvent[]> {
     return await this.eventModel
       .find({ idCat: catId, numSeason: parseInt(year) })

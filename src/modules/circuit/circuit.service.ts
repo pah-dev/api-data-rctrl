@@ -24,6 +24,13 @@ export class CircuitService {
     return await this.circuitModel.findOne(options).exec();
   }
 
+  async getIds(catId: string): Promise<ICircuit[]> {
+    return await this.circuitModel
+      .find({ strLeague: catId })
+      .select('idCircuit')
+      .exec();
+  }
+
   async create(createCircuitDto: CreateCircuitDto[]): Promise<any> {
     const ret = {};
     const data = [];

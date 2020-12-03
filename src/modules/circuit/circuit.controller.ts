@@ -9,7 +9,7 @@ import {
   Res,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiBasicAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CircuitService } from './circuit.service';
 import { CreateCircuitDto, UpdateCircuitDto } from './dtos';
 
@@ -21,9 +21,14 @@ export class CircuitController {
   @Get()
   async getCircuits(@Res() res) {
     const circuits = await this.circuitService.findAll();
-    return res.status(HttpStatus.OK).json({
-      circuits,
-    });
+    return res.status(HttpStatus.OK).json(circuits);
+  }
+
+  @Get('/find')
+  public async findCircuit(@Res() res, @Body() body) {
+    const queryCondition = body;
+    const circuits = await this.circuitService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(circuits);
   }
 
   @Get('/:circuitId')
@@ -32,10 +37,9 @@ export class CircuitController {
     return res.status(HttpStatus.OK).json(circuit);
   }
 
-  @Get('/find')
-  public async findCircuit(@Res() res, @Body() body) {
-    const queryCondition = body;
-    const circuits = await this.circuitService.findOne(queryCondition);
+  @Get('/ids/:catId')
+  async getIds(@Res() res, @Param('catId') catId: string) {
+    const circuits = await this.circuitService.getIds(catId);
     return res.status(HttpStatus.OK).json(circuits);
   }
 
@@ -50,13 +54,13 @@ export class CircuitController {
     @Body() createCircuitDto: CreateCircuitDto[],
   ) {
     const circuit = await this.circuitService.create(createCircuitDto);
-    return res.status(HttpStatus.OK).json({ circuit });
+    return res.status(HttpStatus.OK).json(circuit);
   }
 
   @Delete('/delete/:circuitId')
   async deleteCircuit(@Param('circuitId') circuitId: string, @Res() res) {
     const circuitDeleted = await this.circuitService.delete(circuitId);
-    return res.status(HttpStatus.OK).json({ circuitDeleted });
+    return res.status(HttpStatus.OK).json(circuitDeleted);
   }
 
   @Put('/update/:circuitId')
@@ -69,6 +73,6 @@ export class CircuitController {
       circuitId,
       updateCircuitDto,
     );
-    return res.status(HttpStatus.OK).json({ circuitUpdated });
+    return res.status(HttpStatus.OK).json(circuitUpdated);
   }
 }

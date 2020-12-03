@@ -21,15 +21,30 @@ export class ChampController {
   @Get()
   async getChamps(@Res() res) {
     const champs = await this.champService.findAll();
-    return res.status(HttpStatus.OK).json({
-      champs,
-    });
+    return res.status(HttpStatus.OK).json(champs);
+  }
+
+  @Get('/find')
+  public async findChamp(@Res() res, @Body() body) {
+    const queryCondition = body;
+    const champ = await this.champService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(champ);
   }
 
   @Get('/:champId')
   async getChamp(@Res() res, @Param('champId') champId: string) {
     const champ = await this.champService.findById(champId);
     return res.status(HttpStatus.OK).json(champ);
+  }
+
+  @Get('/ids/:catId/:year')
+  async getIds(
+    @Res() res,
+    @Param('catId') catId: string,
+    @Param('year') year: string,
+  ) {
+    const champs = await this.champService.getIds(catId, year);
+    return res.status(HttpStatus.OK).json(champs);
   }
 
   @Get('/cat/:catId/:year/:type')
@@ -40,13 +55,6 @@ export class ChampController {
     @Param('type') type: string,
   ) {
     const champ = await this.champService.getChampCat(catId, year, type);
-    return res.status(HttpStatus.OK).json(champ);
-  }
-
-  @Get('/find')
-  public async findChamp(@Res() res, @Body() body) {
-    const queryCondition = body;
-    const champ = await this.champService.findOne(queryCondition);
     return res.status(HttpStatus.OK).json(champ);
   }
 

@@ -21,15 +21,29 @@ export class DriverController {
   @Get()
   async getDrivers(@Res() res) {
     const drivers = await this.driverService.findAll();
-    return res.status(HttpStatus.OK).json({
-      drivers,
-    });
+    return res.status(HttpStatus.OK).json(drivers);
+  }
+
+  @Get('/find')
+  public async findDriver(@Res() res, @Body() body) {
+    const queryCondition = body;
+    const driver = await this.driverService.findOne(queryCondition);
+    return res.status(HttpStatus.OK).json(driver);
   }
 
   @Get('/:driverId')
   async getDriver(@Res() res, @Param('driverId') driverId: string) {
     const driver = await this.driverService.findById(driverId);
-    //if (!driver) throw new NotFoundException('Driver does not exists');
+    return res.status(HttpStatus.OK).json(driver);
+  }
+
+  @Get('/ids/:catId/:year')
+  async getIds(
+    @Res() res,
+    @Param('catId') catId: string,
+    @Param('year') year: string,
+  ) {
+    const driver = await this.driverService.getIds(catId, year);
     return res.status(HttpStatus.OK).json(driver);
   }
 
@@ -43,13 +57,6 @@ export class DriverController {
     return res.status(HttpStatus.OK).json(drivers);
   }
 
-  @Get('/find')
-  public async findDriver(@Res() res, @Body() body) {
-    const queryCondition = body;
-    const driver = await this.driverService.findOne(queryCondition);
-    return res.status(HttpStatus.OK).json(driver);
-  }
-
   @Post('/create')
   @ApiResponse({
     status: 201,
@@ -61,13 +68,13 @@ export class DriverController {
     @Body() createDriverDto: CreateDriverDto[],
   ) {
     const driver = await this.driverService.create(createDriverDto);
-    return res.status(HttpStatus.OK).json({ driver });
+    return res.status(HttpStatus.OK).json(driver);
   }
 
   @Delete('/delete/:driverId')
   async deleteDriver(@Param('driverId') driverId: string, @Res() res) {
     const driverDeleted = await this.driverService.delete(driverId);
-    return res.status(HttpStatus.OK).json({ driverDeleted });
+    return res.status(HttpStatus.OK).json(driverDeleted);
   }
 
   @Put('/update/:driverId')
@@ -80,6 +87,6 @@ export class DriverController {
       driverId,
       updateDriverDto,
     );
-    return res.status(HttpStatus.OK).json({ driverUpdated });
+    return res.status(HttpStatus.OK).json(driverUpdated);
   }
 }
