@@ -72,7 +72,7 @@ export class DriverService implements IDriverService {
         }
       }
     } catch (ex) {
-      err.push(this.eH.logger(ex, 'Driver', 'Create'));
+      err.push(this.eH.logger(ex, 'Driver', 'Create', createDriverDto));
     }
     ret['error'] = err;
     ret['data'] = data;

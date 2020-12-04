@@ -74,7 +74,7 @@ export class EventService implements IEventService {
         }
       }
     } catch (ex) {
-      err.push(this.eH.logger(ex, 'Event', 'Create'));
+      err.push(this.eH.logger(ex, 'Event', 'Create', createEventDto));
     }
     ret['error'] = err;
     ret['data'] = data;

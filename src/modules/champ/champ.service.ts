@@ -99,7 +99,7 @@ export class ChampService implements IChampService {
         );
       }
     } catch (ex) {
-      this.eH.logger(ex, 'Championship', 'Create');
+      this.eH.logger(ex, 'Championship', 'Create', createChampDto);
     }
     ret['error'] = err;
     ret['data'] = data;
@@ -149,7 +149,7 @@ export class ChampService implements IChampService {
         );
       }
     } catch (ex) {
-      this.eH.logger(ex, 'Championship', 'Update');
+      this.eH.logger(ex, 'Championship', 'Update', updChamp);
     }
     ret['error'] = err;
     ret['data'] = data;

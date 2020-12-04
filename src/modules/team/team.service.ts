@@ -59,7 +59,7 @@ export class TeamService implements ITeamService {
         }
       }
     } catch (ex) {
-      err.push(this.eH.logger(ex, 'Team', 'Create'));
+      err.push(this.eH.logger(ex, 'Team', 'Create', createTeamDto));
     }
     ret['error'] = err;
     ret['data'] = data;

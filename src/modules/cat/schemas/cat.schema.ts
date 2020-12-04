@@ -18,6 +18,7 @@ export const CatSchema = new Schema(
     strDivision: { type: String, default: '' },
     idCup: { type: String, default: '' },
     strCurrentSeason: { type: String, default: '' },
+    strNormalSeason: { type: String, default: 'Y' },
     intFormedYear: { type: String, defaut: '' },
     strGender: { type: String, defaut: '' },
     strCountry: { type: String, defaut: '' },
