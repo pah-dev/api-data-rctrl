@@ -31,8 +31,14 @@ export class EventService implements IEventService {
   }
 
   async getIds(catId: string, year: string): Promise<IEvent[]> {
+    let condition = {};
+    if (year == '0') {
+      condition = { idCat: catId };
+    } else {
+      condition = { idCat: catId, numSeason: { $gte: parseInt(year) } };
+    }
     return await this.eventModel
-      .find({ idCat: catId, numSeason: parseInt(year) })
+      .find(condition)
       .select('idEvent')
       .exec();
   }

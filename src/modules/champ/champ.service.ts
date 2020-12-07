@@ -43,8 +43,14 @@ export class ChampService implements IChampService {
   }
 
   async getIds(catId: string, year: string): Promise<IChamp[]> {
+    let condition = {};
+    if (year == '0') {
+      condition = { idCat: catId };
+    } else {
+      condition = { idCat: catId, numSeason: { $gte: parseInt(year) } };
+    }
     return await this.champModel
-      .find({ idCat: catId, numSeason: parseInt(year) })
+      .find(condition)
       .select('idChamp')
       .exec();
   }

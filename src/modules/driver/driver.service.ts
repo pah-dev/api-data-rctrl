@@ -32,8 +32,14 @@ export class DriverService implements IDriverService {
   }
 
   async getIds(catId: string, year: string): Promise<IDriver[]> {
+    let condition = {};
+    if (year == '0') {
+      condition = { idCat: catId };
+    } else {
+      condition = { idCat: catId, numSeason: { $gte: parseInt(year) } };
+    }
     return await this.driverModel
-      .find({ idCat: catId, numSeason: parseInt(year) })
+      .find(condition)
       .select('idPlayer')
       .exec();
   }
