@@ -81,7 +81,7 @@ export class DriverController {
   async updateDriver(
     @Param('driverId') driverId: string,
     @Res() res,
-    @Body() updateDriverDto: UpdateDriverDto,
+    @Body() updateDriverDto: UpdateDriverDto[],
   ) {
     const driverUpdated = await this.driverService.update(
       driverId,

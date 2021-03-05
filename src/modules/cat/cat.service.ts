@@ -63,7 +63,7 @@ export class CatService implements ICatService {
 
   async update(catId: string, newCat: UpdateCatDto): Promise<ICat> {
     const cat = await this.catModel.findById(catId).exec();
-    if (!cat._id) {
+    if (!cat) {
       Logger.log('Cat not found');
     }
     return await this.catModel

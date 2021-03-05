@@ -78,7 +78,7 @@ export class TeamController {
   async updateTeam(
     @Param('teamId') teamId: string,
     @Res() res,
-    @Body() updateTeamDto: UpdateTeamDto,
+    @Body() updateTeamDto: UpdateTeamDto[],
   ) {
     const teamUpdated = await this.teamService.update(teamId, updateTeamDto);
     return res.status(HttpStatus.OK).json(teamUpdated);

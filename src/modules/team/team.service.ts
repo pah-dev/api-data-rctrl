@@ -72,16 +72,55 @@ export class TeamService implements ITeamService {
     return ret;
   }
 
-  async update(teamId: string, newTeam: UpdateTeamDto): Promise<ITeam> {
-    const team = await this.teamModel.findById(teamId).exec();
+  async update(teamId: string, updateTeamDto: UpdateTeamDto[]): Promise<any> {
+    const ret = {};
+    const data = [];
+    const err = [];
+    try {
+      for (const newTeam of updateTeamDto) {
+        let team = null;
+        if (teamId == '0') {
+          team = await this.teamModel
+            .findOne({ idTeam: newTeam.idTeam })
+            .exec();
+        } else {
+          team = await this.teamModel.findById(teamId).exec();
+        }
+        if (!team) {
+          Logger.log('Team not found');
+          data.push(await this.create([newTeam]));
+        } else {
+          const updDriver = new this.teamModel(newTeam);
+          const teamObj = updDriver.toObject();
+          delete teamObj._id;
+          let cat = null;
+          cat = await this.catService.findById(newTeam.idCat);
+          if (!cat) {
+            const oneCat = await this.catService.findOne({
+              idLeague: newTeam.idCategory,
+            });
+            if (oneCat) {
+              teamObj.idCat = oneCat._id;
+              teamObj.idOrg = oneCat.idOrg;
+            }
+          } else {
+            teamObj.idTeam = cat._id;
+            teamObj.idOrg = cat.idOrg;
+          }
 
-    if (!team._id) {
-      Logger.log('Team not found');
+          data.push(
+            await this.teamModel
+              .findByIdAndUpdate(team._id, teamObj, { new: true })
+              .exec(),
+          );
+        }
+      }
+    } catch (ex) {
+      err.push(this.eH.logger(ex, 'Team', 'Create', updateTeamDto));
     }
-
-    return await this.teamModel
-      .findByIdAndUpdate(teamId, newTeam, { new: true })
-      .exec();
+    ret['error'] = err;
+    ret['data'] = data;
+    return ret;
   }
 
   async delete(teamId: string): Promise<string> {

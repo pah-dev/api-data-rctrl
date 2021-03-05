@@ -6,6 +6,9 @@ export interface IDriverService {
   findById(driverId: string): Promise<IDriver | null>;
   findOne(options: object): Promise<IDriver | null>;
   create(driver: CreateDriverDto[]): Promise<IDriver>;
-  update(driverId: string, newDriver: UpdateDriverDto): Promise<IDriver | null>;
+  update(
+    driverId: string,
+    newDriver: UpdateDriverDto[],
+  ): Promise<IDriver | null>;
   delete(driverId: string): Promise<string>;
 }

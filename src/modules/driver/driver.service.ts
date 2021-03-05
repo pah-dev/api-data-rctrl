@@ -6,6 +6,8 @@ import { CreateDriverDto, UpdateDriverDto } from './dtos';
 import { CatService } from '../cat/cat.service';
 import { TeamService } from '../team/team.service';
 import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
+import { CreateCareerDto } from '../career/dtos';
+import { CareerService } from '../career/career.service';
 
 @Injectable()
 export class DriverService implements IDriverService {
@@ -13,6 +15,7 @@ export class DriverService implements IDriverService {
     @InjectModel('Drivers') private readonly driverModel: Model<IDriver>,
     private catService: CatService,
     private teamService: TeamService,
+    private careerService: CareerService,
     private eH: ErrorHandlerService,
   ) {}
 
@@ -60,6 +63,7 @@ export class DriverService implements IDriverService {
         idLeague: createDriverDto[0].idCategory,
       });
       for (const driver of createDriverDto) {
+        const career: CreateCareerDto = new CreateCareerDto();
         const newDriver = new this.driverModel(driver);
         const team = await this.teamService.findOne({ idTeam: driver.idTeam });
         try {
@@ -71,6 +75,21 @@ export class DriverService implements IDriverService {
           newDriver.idCat = cat._id;
           newDriver.idOrg = cat.idOrg;
           data.push(await newDriver.save());
+
+          career.idCat = cat._id;
+          career.idOrg = cat.idOrg;
+          career.idPlayer = newDriver._id;
+          career.idTeam = newDriver.idTeam;
+          career.numSeason = newDriver.numSeason;
+          career.idCareer =
+            career.numSeason +
+            '|' +
+            career.idCat +
+            '|' +
+            career.idPlayer +
+            '|' +
+            career.idTeam;
+          data.push(await this.careerService.create([career]));
         } catch (ex) {
           err.push(
             this.eH.logger(ex, 'Driver', 'Create', driver, driver.idPlayer),
@@ -85,14 +104,97 @@ export class DriverService implements IDriverService {
     return ret;
   }
 
-  async update(driverId: string, newDriver: UpdateDriverDto): Promise<IDriver> {
-    const driver = await this.driverModel.findById(driverId).exec();
-    if (!driver._id) {
-      Logger.log('Driver not found');
+  async update(
+    driverId: string,
+    updateDriverDto: UpdateDriverDto[],
+  ): Promise<any> {
+    const ret = {};
+    const data = [];
+    const err = [];
+    try {
+      for (const newDriver of updateDriverDto) {
+        let driver = null;
+        if (driverId == '0') {
+          driver = await this.driverModel
+            .findOne({ idPlayer: newDriver.idPlayer })
+            .exec();
+        } else {
+          driver = await this.driverModel.findById(driverId).exec();
+        }
+        if (!driver) {
+          Logger.log('Driver not found');
+          data.push(await this.create([newDriver]));
+        } else {
+          const updDriver = new this.driverModel(newDriver);
+          const driverObj = updDriver.toObject();
+          delete driverObj._id;
+          let cat = null;
+          cat = await this.catService.findById(newDriver.idCat);
+          if (!cat) {
+            const oneCat = await this.catService.findOne({
+              idLeague: newDriver.idCategory,
+            });
+            if (oneCat) {
+              driverObj.idCat = oneCat._id;
+              driverObj.idOrg = oneCat.idOrg;
+            }
+          } else {
+            driverObj.idTeam = cat._id;
+            driverObj.idOrg = cat.idOrg;
+          }
+          let team = null;
+          if (!driverObj.idTeam) {
+            team = await this.teamService.findOne({
+              strTeam: driverObj.strTeam,
+              idCat: driverObj.idCat,
+            });
+          } else {
+            team = await this.teamService.findById(driverObj.idTeam);
+          }
+          if (!team) {
+            const oneTeam = await this.teamService.findOne({
+              idTeam: driverObj.idTeam,
+            });
+            if (oneTeam) {
+              driverObj.idTeam = oneTeam._id;
+            }
+          } else {
+            driverObj.idTeam = team._id;
+          }
+          data.push(
+            await this.driverModel
+              .findByIdAndUpdate(driver._id, driverObj, { new: true })
+              .exec(),
+          );
+          const idCareer =
+            driverObj.numSeason +
+            '|' +
+            driverObj.idCat +
+            '|' +
+            driverObj.idPlayer +
+            '|' +
+            driverObj.idTeam;
+          const career = await this.careerService.findOne({
+            idCareer: idCareer,
+          });
+          if (!career) {
+            const dtoCareer: CreateCareerDto = new CreateCareerDto();
+            dtoCareer.idCat = driverObj.idCat;
+            dtoCareer.idOrg = driverObj.idOrg;
+            dtoCareer.idPlayer = driver._id;
+            dtoCareer.idTeam = driverObj.idTeam;
+            dtoCareer.numSeason = driverObj.numSeason;
+            dtoCareer.idCareer = idCareer;
+            data.push(await this.careerService.create([dtoCareer]));
+          }
+        }
+      }
+    } catch (ex) {
+      err.push(this.eH.logger(ex, 'Driver', 'Update', updateDriverDto));
     }
-    return await this.driverModel
-      .findByIdAndUpdate(driverId, newDriver, { new: true })
-      .exec();
+    ret['error'] = err;
+    ret['data'] = data;
+    return ret;
   }
 
   async delete(driverId: string): Promise<string> {
