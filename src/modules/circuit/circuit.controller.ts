@@ -67,7 +67,7 @@ export class CircuitController {
   async updateCircuit(
     @Param('circuitId') circuitId: string,
     @Res() res,
-    @Body() updateCircuitDto: UpdateCircuitDto,
+    @Body() updateCircuitDto: UpdateCircuitDto[],
   ) {
     const circuitUpdated = await this.circuitService.update(
       circuitId,
