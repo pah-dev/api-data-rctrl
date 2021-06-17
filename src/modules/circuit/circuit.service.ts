@@ -4,11 +4,13 @@ import { ICircuit } from './interfaces';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
+import { CatService } from '../cat/cat.service';
 
 @Injectable()
 export class CircuitService {
   constructor(
     @InjectModel('Circuits') private readonly circuitModel: Model<ICircuit>,
+    private catService: CatService,
     private eH: ErrorHandlerService,
   ) {}
 
@@ -52,17 +54,41 @@ export class CircuitService {
 
   async update(
     circuitId: string,
-    newCircuit: UpdateCircuitDto,
-  ): Promise<ICircuit> {
-    const circuit = await this.circuitModel.findById(circuitId).exec();
-
-    if (!circuit._id) {
-      Logger.log('Circuit not found');
+    updateCircuitDto: UpdateCircuitDto[],
+  ): Promise<any> {
+    const ret = {};
+    const data = [];
+    const err = [];
+    try {
+      for (const newCircuit of updateCircuitDto) {
+        let circuit = null;
+        if (circuitId == '0') {
+          circuit = await this.circuitModel
+            .findOne({ idCircuit: newCircuit.idCircuit })
+            .exec();
+        } else {
+          circuit = await this.circuitModel.findById(circuitId).exec();
+        }
+        if (!circuit) {
+          Logger.log('Circuit not found');
+          data.push(await this.create([newCircuit]));
+        } else {
+          const updCircuit = new this.circuitModel(newCircuit);
+          const circuitObj = updCircuit.toObject();
+          delete circuitObj._id;
+          data.push(
+            await this.circuitModel
+              .findByIdAndUpdate(circuit._id, circuitObj, { new: true })
+              .exec(),
+          );
+        }
+      }
+    } catch (ex) {
+      err.push(this.eH.logger(ex, 'Circuit', 'Update', UpdateCircuitDto));
     }
-
-    return await this.circuitModel
-      .findByIdAndUpdate(circuitId, newCircuit, { new: true })
-      .exec();
+    ret['error'] = err;
+    ret['data'] = data;
+    return ret;
   }
 
   async delete(circuitId: string): Promise<string> {

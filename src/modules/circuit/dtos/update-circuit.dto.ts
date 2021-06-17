@@ -1,38 +1,227 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, MaxLength, IsNumber, IsUrl } from 'class-validator';
 
 export class UpdateCircuitDto {
+  @ApiProperty()
   @IsString()
-  @MaxLength(150, { message: 'This description is not valid' })
-  readonly description: string;
+  readonly idCircuit: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  @MaxLength(20, { message: 'This alias is not valid' })
-  readonly alias?: string;
+  readonly idEspn: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  readonly address: string;
+  readonly idTsdb: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  readonly mapsAddress?: string;
+  readonly idMss: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  readonly phone?: string;
+  readonly idMyL: string;
 
+  @ApiPropertyOptional()
   @IsString()
-  readonly country?: string;
+  readonly idRCtrl: string;
 
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCircuit: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCircuitShort: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strAlternate: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly intFormedYear: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strSport: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLeague: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strType: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLength: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDirection: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCorners: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strRSS: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadium: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadiumThumb: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadiumDescription: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strStadiumLocation: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly intStadiumCapacity: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly intSoccerXMLTeamID: string;
+
+  @ApiPropertyOptional()
   @IsNumber()
-  readonly size: number;
+  readonly numSeason: number;
 
-  @IsNumber()
-  readonly team: number;
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strWebsite: string;
 
-  @IsUrl({}, { message: 'Must be an URL' })
-  readonly web?: string;
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFacebook: string;
 
-  @IsUrl({}, { message: 'Must be an URL' })
-  readonly logoURL?: string;
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strTwitter: string;
 
-  @IsUrl({}, { message: 'Must be an URL' })
-  readonly photoURL?: string;
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strInstagram: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strYoutube: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionEN: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionDE: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionFR: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionCN: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionIT: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionJP: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionRU: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionES: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionPT: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionSE: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionNL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionHU: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionNO: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionIL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strDescriptionPL: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strAddress: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strCountry: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strBadge: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strJersey: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLogo: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart1: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart2: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart3: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strFanart4: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strBanner: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  readonly strLocked: string;
+
+  @ApiPropertyOptional()
+  readonly isOnlyImg: boolean;
 }

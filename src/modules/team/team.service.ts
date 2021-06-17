@@ -90,8 +90,8 @@ export class TeamService implements ITeamService {
           Logger.log('Team not found');
           data.push(await this.create([newTeam]));
         } else {
-          const updDriver = new this.teamModel(newTeam);
-          const teamObj = updDriver.toObject();
+          const updTeam = new this.teamModel(newTeam);
+          const teamObj = updTeam.toObject();
           delete teamObj._id;
           let cat = null;
           cat = await this.catService.findById(newTeam.idCat);
