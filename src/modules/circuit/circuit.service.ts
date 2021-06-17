@@ -4,13 +4,11 @@ import { ICircuit } from './interfaces';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ErrorHandlerService } from '../../shared/error-handler/error-handler.service';
-import { CatService } from '../cat/cat.service';
 
 @Injectable()
 export class CircuitService {
   constructor(
     @InjectModel('Circuits') private readonly circuitModel: Model<ICircuit>,
-    private catService: CatService,
     private eH: ErrorHandlerService,
   ) {}
 
