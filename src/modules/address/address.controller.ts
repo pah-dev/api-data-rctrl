@@ -69,7 +69,11 @@ export class AddressController {
     return res.status(HttpStatus.OK).json(addressDeleted);
   }
 
-  @Put('/update/:id')
+  @Post('/update/:id')
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+  })
   async updateAddress(
     @Param('id') addressId: string,
     @Res() res,
