@@ -66,8 +66,6 @@ export class AddressService {
       for (const newAddress of updateAddressDto) {
         let address = null;
         if (addressId == '0') {
-          Logger.log(newAddress.hash);
-
           address = await this.addressModel
             .findOne({ hash: newAddress.hash })
             .exec();
@@ -81,7 +79,6 @@ export class AddressService {
           const updAddress = new this.addressModel(newAddress);
           const addressObj = updAddress.toObject();
           addressObj.visits = address.visits + 1;
-          Logger.log(address);
           delete addressObj._id;
           data.push(
             await this.addressModel
