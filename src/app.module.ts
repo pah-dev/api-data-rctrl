@@ -12,6 +12,7 @@ import { ResponseApiService } from './shared/response-api/response-api.service';
 import { CircuitModule } from './modules/circuit/circuit.module';
 import { SectionModule } from './modules/section/section.module';
 import { ErrorHandlerModule } from './shared/error-handler/error-handler.module';
+import { AddressModule } from './modules/address/address.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ErrorHandlerModule } from './shared/error-handler/error-handler.module'
     EventModule,
     ChampModule,
     SectionModule,
+    AddressModule,
     ErrorHandlerModule,
   ],
   controllers: [AppController],
